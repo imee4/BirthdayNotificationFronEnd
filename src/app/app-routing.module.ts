@@ -4,7 +4,8 @@ import { BrowserModule } from "@angular/platform-browser";
 import { Routes, RouterModule } from "@angular/router";
 
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
-import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component'; 
+import { UserLayoutComponent } from "./layouts/user-layout/user-layout/user-layout.component";
 // import { AdminLayout2Component } from "./layouts/admin-layout2/admin-layout2.component";
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
     redirectTo: "dashboard",
     pathMatch: "full"
   },
+  
   {
     path: "",
     component: AdminLayoutComponent,
@@ -23,16 +25,16 @@ const routes: Routes = [
       }
     ]
   },
-  // {
-  //   path: "",
-  //   component: AdminLayout2Component,
-  //   children: [
-  //     {
-  //       path: "",
-  //       loadChildren: () => import ("./layouts/admin-layout2/admin-layout2.module").then(m => m.AdminLayout2Module)
-  //     }
-  //   ]
-  // },
+  {
+    path: "",
+    component: UserLayoutComponent,
+    children: [
+      {
+        path: "",
+        loadChildren: () => import ("./layouts/user-layout/user-layout.module").then(m => m.UserLayoutModule)
+      }
+    ]
+  },
    {
     path: "",
     component: AuthLayoutComponent,
@@ -43,10 +45,10 @@ const routes: Routes = [
       }
     ]
   },
-  {
-    path: "**",
-    redirectTo: "dashboard"
-  }
+  // {
+  //   path: '**',
+  //   redirectTo: '/not-found' //Error 404 - Page not found
+  // }
 ];
 
 @NgModule({

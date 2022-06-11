@@ -17,13 +17,13 @@ import { TypographyComponent } from "../../pages/typography/typography.component
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap"; 
 import { AdminLayoutComponent } from "./admin-layout.component";
 import { AppComponent } from "src/app/app.component";
-import { AuthLayoutComponent } from "../auth-layout/auth-layout.component";
-import { ComponentsModule } from "src/app/components/components.module";
+import { AuthLayoutComponent } from "../auth-layout/auth-layout.component"; 
 import { DxButtonModule, DxChartModule, DxCheckBoxModule, DxDataGridModule, DxDateBoxModule, DxFileUploaderModule, DxFormModule, DxFunnelModule, DxPieChartModule, DxPivotGridModule, DxSelectBoxModule, DxSpeedDialActionModule, DxTabPanelModule, DxTextAreaModule, DxToolbarModule } from "devextreme-angular";
 import { MakeAdminComponent } from "src/app/components/make-admin/make-admin.component";  
 import { ManageAdminComponent } from "src/app/components/manage-admin/manage-admin.component";
 import { AddUsersComponent } from "src/app/components/add-users/add-users.component";
 import { ManageGroupComponent } from "src/app/components/manage-group/manage-group.component";
+import { ComponentsModule } from "src/app/components/components.module";
  
 
 @NgModule({
