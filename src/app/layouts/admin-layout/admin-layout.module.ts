@@ -24,6 +24,9 @@ import { ManageAdminComponent } from "src/app/components/manage-admin/manage-adm
 import { AddUsersComponent } from "src/app/components/add-users/add-users.component";
 import { ManageGroupComponent } from "src/app/components/manage-group/manage-group.component";
 import { ComponentsModule } from "src/app/components/components.module";
+import { ListOfUsersComponent } from "./list-of-users/list-of-users.component";
+import { ListOfGroupComponent } from "./list-of-group/list-of-group.component";
+import { NgSelectModule } from "@ng-select/ng-select";
  
 
 @NgModule({
@@ -62,6 +65,7 @@ import { ComponentsModule } from "src/app/components/components.module";
     DxFormModule,
     DxDataGridModule,
     DxSpeedDialActionModule, 
+    NgSelectModule, 
   ],
   declarations: [
     DashboardComponent,
@@ -78,6 +82,8 @@ import { ComponentsModule } from "src/app/components/components.module";
       MakeAdminComponent,
     ManageGroupComponent,
     ManageAdminComponent,
+    ListOfUsersComponent,
+    ListOfGroupComponent
     // RtlComponent
   ]
   

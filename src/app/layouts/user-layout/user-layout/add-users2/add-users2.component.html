@@ -29,7 +29,7 @@
                                                     [class.text-danger]="FullName.invalid && FullName.touched">Full Name
                                                 </label><i class="text-danger">*</i>
                                                 <input type="text" maxlength="50" id="FullName" name="fullName"
-                                                    #FullName="ngModel" [(ngModel)]="apiModel.fullName"
+                                                    #FullName="ngModel" [(ngModel)]="apiModel.name"
                                                     [class.is-invalid]="FullName.invalid && FullName.touched"
                                                     class="form-control" placeholder="Enter Full FullName..." required>
                                                 <div *ngIf="FullName.invalid && FullName.touched">
@@ -44,7 +44,7 @@
                                                 <label for="Email"
                                                     [class.text-danger]="Email.invalid && Email.touched">Email
                                                 </label><i class="text-danger">*</i>
-                                                <input type="text" maxlength="50" id="Email" name="email" #Email="ngModel"
+                                                <input type="email" maxlength="50" id="Email" name="email" #Email="ngModel"
                                                     [(ngModel)]="apiModel.email"
                                                     [class.is-invalid]="Email.invalid && Email.touched"
                                                     class="form-control" placeholder="Enter Email..." required>
@@ -66,7 +66,7 @@
                                                     [class.text-danger]="PhoneNumber.invalid && PhoneNumber.touched">Phone Number
                                                 </label><i class="text-danger">*</i>
                                                 <input type="text" maxlength="50" id="PhoneNumber" name="PhoneNumber"
-                                                    #PhoneNumber="ngModel" [(ngModel)]="apiModel.phoneNumber"
+                                                    #PhoneNumber="ngModel" [(ngModel)]="apiModel.phone_number"
                                                     [class.is-invalid]="PhoneNumber.invalid && PhoneNumber.touched"
                                                     class="form-control" placeholder="Enter Phone Number..." required>
                                                 <div *ngIf="PhoneNumber.invalid && PhoneNumber.touched">
@@ -76,13 +76,13 @@
                                             </div>
                                         </div>
  
-                                        <div class="col-md-6">
+                                        <!-- <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="DateOfBirth"
                                                     [class.text-danger]="DateOfBirth.invalid && DateOfBirth.touched">Date Of Birth
                                                 </label><i class="text-danger">*</i>
-                                                <input type="text" maxlength="50" id="DateOfBirth" name="DateOfBirth" #DateOfBirth="ngModel"
-                                                    [(ngModel)]="apiModel.dateOfBirth"
+                                                <input type="date" maxlength="50" id="DateOfBirth" name="DateOfBirth" #DateOfBirth="ngModel"
+                                                    [(ngModel)]="apiModel.profile.dob"
                                                     [class.is-invalid]="DateOfBirth.invalid && DateOfBirth.touched"
                                                     class="form-control" placeholder="Enter Date Of Birth..." required>
                                                 <div *ngIf="DateOfBirth.invalid && DateOfBirth.touched">
@@ -90,14 +90,14 @@
                                                         Required</small>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                     </div>
                                 </div>
 
                                
                                  <!-- /*Groups Start*/ -->
-                                <div class="form-body">
+                                <!-- <div class="form-body">
                                     <div class="row">
 
                                         <div class="col-md-6">
@@ -109,22 +109,22 @@
                                                     #GroupName="ngModel" [(ngModel)]="apiModel.group.name"
                                                     [class.is-invalid]="GroupName.invalid && GroupName.touched"
                                                     class="form-control" placeholder="Enter Group Name..."></select>
-                                                <!-- <div *ngIf="GroupName.invalid && GroupName.touched"> -->
+                                                 <div *ngIf="GroupName.invalid && GroupName.touched"> -->
                                                     <!-- <small *ngIf="GroupName.errors?.required" class="text-danger">Group ID is
                                                         Required</small> -->
-                                                <!-- </div> -->
+                                                <!-- </div> 
                                             </div>
                                         </div>
  
                                         
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="form-actions right mb-0 pb-0">
-                                    <button type="button" class="btn btn-warning mr-1 btn-sm shadow-sm btn-small" (click)="hideForm()">
+                                    <!-- <button type="button" class="btn btn-warning mr-1 btn-sm shadow-sm btn-small" (click)="hideForm()">
 
                                         Cancel
-                                    </button>
+                                    </button> -->
                                     <button type="submit" class="btn btn-primary btn-sm shadow-sm btn-small" [disabled]="form.invalid">
 
                                         {{operation}}
@@ -143,22 +143,22 @@
           <h4 class="float-left mb-0 font-weight-bolder">
               <strong>List of Records</strong>
           </h4> -->
-          <div class="float-right border-radius-lg">
+          <!-- <div class="float-right border-radius-lg">
               <button class="btn btn-gradient-primary btn-sm btn-small" rippleEffect (click)="addItem()">
                   <i  _ngcontent-tix-c35="" class="icon-simple-add tim-icons"></i>
                   <span class="d-none d-sm-inline-block">Add New
                       Record</span>
               </button>
-         </div>  
+         </div>   -->
 
     
       <!-- /.box-header -->
-      <div class="card-content collapse show">
+      <!-- <div class="card-content collapse show">
           <div class="card-body">
               <div class="table-responsive"> 
      
 
-                     <dx-data-grid class="dx-card wide-card" [dataSource]="addUserResources"
+                     <dx-data-grid class="dx-card wide-card border border-danger border-50" [dataSource]="addUserResources"
                       [showBorders]="true" [visible]="true" placeholder="Search..." [showColumnLines]="true"
                       [showRowLines]="true" [rowAlternationEnabled]="true" keyExpr="id" [focusedRowEnabled]="true"
                       [focusedRowIndex]="0" [columnAutoWidth]="true" [allowColumnReordering]="true"
@@ -179,11 +179,11 @@
                   </dx-data-grid>
              </div>
           </div>
-      </div>   
+     </div>    -->
       <!-- end box-body -->
   <!-- </div> -->
     </div>
-</div>
+</div> 
 
 </div>
 </div>

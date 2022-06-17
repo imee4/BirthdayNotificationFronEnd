@@ -30,10 +30,10 @@
                                                 <label for="AdminID"
                                                     [class.text-danger]="AdminID.invalid && AdminID.touched">Admin ID
                                                 </label><i class="text-danger">*</i>
-                                                <select type="text" maxlength="50" id="profile.name" name="name"
-                                                    #AdminID="ngModel" [(ngModel)]="apiModel.name"
+                                                <ng-select type="text" maxlength="50" id="admin_id" name="name"
+                                                    #AdminID="ngModel" [(ngModel)]="apiModel.group_name" [items]="groupResources" bindValue="group_name" bindLabel="admin_id"
                                                     [class.is-invalid]="AdminID.invalid && AdminID.touched"
-                                                    class="form-control" placeholder="Enter Admin ID..." required></select>
+                                                    class="form-control" placeholder="Enter Admin ID..." required></ng-select>
                                                 <div *ngIf="AdminID.invalid && AdminID.touched">
                                                     <small *ngIf="AdminID.errors?.required" class="text-danger">Admin ID is
                                                         Required</small>
@@ -91,6 +91,34 @@
                       Record</span>
               </button>
          </div>  
+          <!-- /.box-header -->
+      <div class="card-content collapse show">
+        <div class="card-body">
+            <div class="table-responsive"> 
+   
+
+                   <dx-data-grid class="dx-card wide-card border border-danger border-50" [dataSource]="groupResources"
+                    [showBorders]="true" [visible]="true" placeholder="Search..." [showColumnLines]="true"
+                    [showRowLines]="true" [rowAlternationEnabled]="true" keyExpr="id" [focusedRowEnabled]="true"
+                    [focusedRowIndex]="0" [columnAutoWidth]="true" [allowColumnReordering]="true"
+                    [allowColumnResizing]="true" [columnAutoWidth]="true" [columnHidingEnabled]=false>
+                    <dxo-paging [pageSize]="10"></dxo-paging>
+                    <dxo-pager [showPageSizeSelector]="true" [showInfo]="true"></dxo-pager>
+                    <dxo-filter-row [visible]="true"></dxo-filter-row> 
+                    <dxi-column dataField="id" caption="ID"> </dxi-column>
+                    <dxi-column dataField="profile.name" caption="Admin Name"> </dxi-column>
+                    <dxi-column dataField="group_name" caption="Group Name"></dxi-column> 
+
+                    <dxi-column type="buttons" fixed=true>
+                    <dxi-button icon="edit" text="Edit" [onClick]="loadItem"></dxi-button>
+                    <dxi-button icon="trash" text="Delete" [onClick]="deleteItem">
+                    </dxi-button>
+                    </dxi-column>
+                </dx-data-grid>
+           </div>
+        </div>
+    </div>   
+    <!-- end box-body -->
 
     
       <!-- /.box-header -->
@@ -99,7 +127,7 @@
               <div class="table-responsive"> 
      
 
-                     <dx-data-grid class="dx-card wide-card" [dataSource]="groupResources"
+                     <dx-data-grid class="dx-card wide-card border border-danger border-50" [dataSource]="groupResources"
                       [showBorders]="true" [visible]="true" placeholder="Search..." [showColumnLines]="true"
                       [showRowLines]="true" [rowAlternationEnabled]="true" keyExpr="id" [focusedRowEnabled]="true"
                       [focusedRowIndex]="0" [columnAutoWidth]="true" [allowColumnReordering]="true"
@@ -107,8 +135,9 @@
                       <dxo-paging [pageSize]="10"></dxo-paging>
                       <dxo-pager [showPageSizeSelector]="true" [showInfo]="true"></dxo-pager>
                       <dxo-filter-row [visible]="true"></dxo-filter-row> 
-                      <dxi-column dataField="id" caption="ID"> </dxi-column>
-                      <dxi-column dataField="profile.name" caption="Admin Name"> </dxi-column>
+                      
+                      <dxi-column dataField="id" caption="Admin Name"> </dxi-column> 
+                      <dxi-column dataField="name" caption="Admin Name"> </dxi-column>
                       <dxi-column dataField="group_name" caption="Group Name"></dxi-column> 
 
                       <dxi-column type="buttons" fixed=true>

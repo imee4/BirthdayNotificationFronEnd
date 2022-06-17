@@ -32,6 +32,13 @@ export const ROUTES: RouteInfo[] = [
     icon: "icon-simple-add",
     class: ""
   },  
+  {
+    path: "list-of-users2",
+    title: "List Of Users",
+    rtlTitle: "لوحة القيادة",
+    icon: "icon-bullet-list-67",
+    class: ""
+  },
 ];
 
 @Component({

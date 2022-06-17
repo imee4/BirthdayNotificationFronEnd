@@ -1,18 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'; 
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
+import { AuthenticationService } from 'src/app/main/api/models/authentication.service';
+import { CoreConfigService } from 'src/app/main/api/models/resources/config.service';
+// import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+// import { ActivatedRoute, Router } from '@angular/router';
 // import { CoreConfigService } from '@core/services/config.service';
-import { Subject } from 'rxjs';
-// import { first, takeUntil } from 'rxjs/operators';
+// import { Subject } from 'rxjs';
+import { first } from 'rxjs/operators';
+import { Role } from 'src/app/main/api/models/resources/role';
 // import { LoginRequestDto } from '../auth.model';
 // import { AuthenticationService } from '../authentication.service';
 
 @Component({
+  selector: 'login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.scss']
+  styleUrls: ['./login-page.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class LoginPageComponent implements OnInit {
-//  Public
+
   public coreConfig: any;
   public loginForm: FormGroup;
   public loading = false;
@@ -20,9 +28,9 @@ export class LoginPageComponent implements OnInit {
   public returnUrl: string;
   public error = '';
   public passwordTextType: boolean;
-
-  // Private
-  private _unsubscribeAll: Subject<any>;
+ private _unsubscribeAll: Subject<any>;
+ user_url='/user/dashboard2';
+ admin_url='/admin/dashboard';
 
   /**
    * Constructor
@@ -30,35 +38,35 @@ export class LoginPageComponent implements OnInit {
    * @param {CoreConfigService} _coreConfigService
    */
   constructor(
-    // private _coreConfigService: CoreConfigService,
+    private _coreConfigService: CoreConfigService,
     private _formBuilder: FormBuilder,
     private _route: ActivatedRoute,
     private _router: Router,
-    // private _authenticationService: AuthenticationService
+    private _authenticationService: AuthenticationService
   ) {
     // redirect to home if already logged in
-    // if (this._authenticationService.currentUserValue) {
-    //   this._router.navigate(['/landing']);
-    // }
+    if (this._authenticationService.currentUserValue) {
+      this._router.navigate(['/']);
+    }
 
-    this._unsubscribeAll = new Subject();
+    // this._unsubscribeAll = new Subject();
 
     // Configure the layout
-    // this._coreConfigService.config = {
-    //   layout: {
-    //     navbar: {
-    //       hidden: true
-    //     },
-    //     menu: {
-    //       hidden: true
-    //     },
-    //     footer: {
-    //       hidden: true
-    //     },
-    //     customizer: false,
-    //     enableLocalStorage: false
-    //   }
-    // };
+    this._coreConfigService.config = {
+      layout: {
+        navbar: {
+          hidden: true
+        },
+        menu: {
+          hidden: true
+        },
+        footer: {
+          hidden: true
+        },
+        customizer: false,
+        enableLocalStorage: false
+      }
+    };
   }
 
   // convenience getter for easy access to form fields
@@ -83,24 +91,30 @@ export class LoginPageComponent implements OnInit {
 
     // Login
     this.loading = true;
-
-    // const credentials: LoginRequestDto = {
-    //   email: this.f.email.value,
-    //   password: this.f.password.value,
-    // }
-
-    // this._authenticationService
-    //   .login(credentials)
-    //   .pipe(first())
-    //   .subscribe(
-    //     data => {
-    //       this._router.navigate([this.returnUrl]);
-    //     },
-    //     error => {
-    //       this.error = error;
-    //       this.loading = false;
-    //     }
-    //   );
+    this._authenticationService
+      .login(this.f.email.value, this.f.password.value)
+      .pipe(first())
+      .subscribe(
+        response => {
+          console.log(response.role);
+          if(response.role === Role.Admin) {
+            console.log(response.role);
+            
+            this._router.navigate(['/admin/dashboard']);
+          } else if (response.role === Role.Super) {
+            
+            this._router.navigate(['/user/dashboard2']);
+            
+          } else {
+            // invalid user
+          }
+          this._router.navigate([this.returnUrl]);
+        },
+        error => {
+          this.error = error;
+          this.loading = false;
+        }
+      );
   }
 
   // Lifecycle Hooks
@@ -112,16 +126,16 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {
     this.loginForm = this._formBuilder.group({
       email: ['admin@demo.com', [Validators.required, Validators.email]],
-      password: ['password', Validators.required]
+      password: ['admin', Validators.required]
     });
 
     // get return url from route parameters or default to '/'
     this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
 
     // Subscribe to config changes
-    // this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
-    //   this.coreConfig = config;
-    // });
+    this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
+      this.coreConfig = config;
+    });
   }
 
   /**
@@ -129,7 +143,9 @@ export class LoginPageComponent implements OnInit {
    */
   ngOnDestroy(): void {
     // Unsubscribe from all subscriptions
-    // this._unsubscribeAll.next();
-    // this._unsubscribeAll.complete();
+    this._unsubscribeAll.next(null);
+    this._unsubscribeAll.complete();
   }
-}
+  }
+
+

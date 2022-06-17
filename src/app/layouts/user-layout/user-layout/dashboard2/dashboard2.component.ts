@@ -18,6 +18,7 @@ export class Dashboard2Component implements OnInit {
   constructor() {} 
 
     public contentHeader: object;
+    
 
     ngOnInit(): void {
       this.contentHeader = {

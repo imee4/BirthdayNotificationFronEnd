@@ -1,18 +1,18 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core"; 
 import { environment } from "src/environments/environment"; 
-import { GroupsResources } from "../models/resources/group-resource.mdel";
+import { GroupsResources } from "../models/resources/group-resource.model";
 
 @Injectable({
     providedIn: 'root',
 })
 export class GroupsEndPoint {
-    baseUrl = `${environment.apiUrl}//admin/groups'`;
+    baseUrl = `${environment.apiUrl}api/group`;
 
     constructor(private readonly httpClient: HttpClient) {}
 
     list() {
-        return this.httpClient.get<{ data: GroupsResources[] }>(`${this.baseUrl}`);
+        return this.httpClient.get<GroupsResources[]>(`${this.baseUrl}`);
     }
 
     single(id: number) {

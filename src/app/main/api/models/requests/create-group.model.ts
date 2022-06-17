@@ -1,4 +1,5 @@
 export class CreateGroup {
-    admin_id:number;
+    id:number;
+    name:number;
     group_name:string; 
 } 

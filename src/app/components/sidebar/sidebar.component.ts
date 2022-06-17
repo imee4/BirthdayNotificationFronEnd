@@ -17,14 +17,14 @@ declare interface RouteInfo2 {
 }
 export const ROUTES2: RouteInfo2[] = [
   {
-    path: "/manage-groups",
+    path: "manage-groups",
     title: "Manage Groups",
     rtlTitle: "لوحة القيادة",
     icon: "icon-molecule-40",
     class: ""
   }, 
   {
-    path: "/manage-admin",
+    path: "manage-admin",
     title: "Manage Admin",
     rtlTitle: "لوحة القيادة",
     icon: "icon-single-02",
@@ -34,7 +34,7 @@ export const ROUTES2: RouteInfo2[] = [
  /*settings menu end*/
 export const ROUTES: RouteInfo[] = [
   {
-    path: "/dashboard",
+    path: "dashboard",
     title: "Dashboard",
     rtlTitle: "لوحة القيادة",
     icon: "icon-chart-pie-36",
@@ -42,17 +42,31 @@ export const ROUTES: RouteInfo[] = [
   },   
   ////////
   {
-    path: "/add-users",
+    path: "add-users",
     title: "Add User",
     rtlTitle: "لوحة القيادة",
     icon: "icon-simple-add",
     class: ""
   },
+  // {
+  //   path: "/make-admin",
+  //   title: "Make Admin",
+  //   rtlTitle: "لوحة القيادة",
+  //   icon: "icon-badge",
+  //   class: ""
+  // },
   {
-    path: "/make-admin",
-    title: "Make Admin",
+    path: "list-of-users",
+    title: "List Of Users",
     rtlTitle: "لوحة القيادة",
-    icon: "icon-badge",
+    icon: "icon-bullet-list-67",
+    class: ""
+  },
+  {
+    path: "list-of-groups",
+    title: "List Of Groups",
+    rtlTitle: "لوحة القيادة",
+    icon: "icon-paper",
     class: ""
   },
   // {
@@ -82,7 +96,7 @@ export const ROUTES: RouteInfo[] = [
   //   rtlTitle: "إخطارات",
   //   icon: "icon-bell-55",
   //   class: ""
-  // },
+  // },s
 
   // {
   //   path: "/user",

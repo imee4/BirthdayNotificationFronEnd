@@ -7,12 +7,12 @@ import { AdminResources } from "../models/resources/admin.model";
     providedIn: 'root',
 })
 export class AdminEndPoint {
-    baseUrl = `${environment.apiUrl}/admins`;
+    baseUrl = `${environment.apiUrl}api/admin`;
 
     constructor(private readonly httpClient: HttpClient) {}
 
     list() {
-        return this.httpClient.get<{ data: AdminResources[] }>(`${this.baseUrl}`);
+        return this.httpClient.get<AdminResources[] >(`${this.baseUrl}`);
     }
 
     single(id: number) {
