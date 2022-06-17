@@ -1,49 +1,107 @@
- 
-	
-	<div class="limiter">
-		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
-			<div class="wrap-login100">
-				<form class="login100-form validate-form">
-					<span class="login100-form-logo">
-						<i class="zmdi zmdi-landscape"></i>
-					</span>
+<section class="h-200 gradient-form container-fluid" style="background-color: #eee; background-image: url('../../../../assets/img/bg2.jpg');background-size: cover; ">
+	<div class="container py-2 h-100">
+	  <div class="row d-flex justify-content-center align-items-center h-100">
+		<div class="col-lg-5">
+			<ngb-alert [type]="'danger'" [dismissible]="false" *ngIf="error">
+				<div class="alert-body">
+				  <p>{{ error }}</p>
+				</div>
+			  </ngb-alert>
+		  <div class="card rounded-3 text-black">
+			<div class="card-body p-md-4side mx-md-4">
+  
+				<div class="text-center">
+				  <img src="../../../../assets/img/gift boxes.png"
+				  width="80" alt="logo">
+				  <h4 class="mt-1 mb-5 pb-1">🅱🅸🆁🆃🅷🅳🅰🆈<br> 🅽🅾🆃🅸🅵🅸🅲🅰🆃🅸🅾🅽 </h4>
+				</div>
 
-					<span class="login100-form-title p-b-34 p-t-27">
-						Log in
-					</span>
+				<form class="auth-login-form mt-2" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+				  <p>Please login to your account</p>
 
-					<div class="wrap-input100 validate-input" data-validate = "Enter username">
-						<input class="input100" type="text" name="username" placeholder="Username">
-						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+				  <!-- <div class="form-outline mb-4">
+					<input type="email" id="form2Example11" class="form-control"
+					  placeholder="Phone number or email address" />
+					<label class="form-label" for="form2Example11">Username</label>
+				  </div> -->
+				  <div class="form-group">
+					<label class="form-label" for="login-email">Email</label>
+					<div class="input-group input-group-merge form-password-toggle">
+					  <div class="input-group-prepend">
+						<span class="input-group-text"></span>
+					  </div>
+					  <input type="text" formControlName="email" class="form-control"
+						[ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="admin@demo.com"
+						aria-describedby="login-email" autofocus="" tabindex="1" />
+					  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+						<div *ngIf="f.email.errors.required">Email is required</div>
+						<div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+					  </div>
 					</div>
+				  </div>
 
-					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<input class="input100" type="password" name="pass" placeholder="Password">
-						<span class="focus-input100" data-placeholder="&#xf191;"></span>
-					</div>
+				  <!-- <div class="form-outline mb-4">
+					<input type="password" id="form2Example22" class="form-control" />
+					<label class="form-label" for="form2Example22">Password</label>
+				  </div> -->
 
-					<div class="contact100-form-checkbox">
-						<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-						<label class="label-checkbox100" for="ckb1">
-							Remember me
-						</label>
+				  <div class="form-group">
+					<div class="d-flex justify-content-between">
+					  <label for="login-password">Password</label>
+					  <!-- <a routerLink="/pages/authentication/forgot-password-v2"><small>Forgot Password?</small></a> -->
 					</div>
+					<div class="input-group input-group-merge form-password-toggle">
+					  <div class="input-group-prepend">
+						<span class="input-group-text"></span>
+					  </div>
+					  <input [type]="passwordTextType ? 'text' : 'password'" formControlName="password"
+						class="form-control form-control-merge"
+						[ngClass]="{ 'is-invalid error': submitted && f.password.errors }" placeholder="············"
+						aria-describedby="login-password" tabindex="2" />
+					  <!-- <div class="input-group-append">
+						<span class="input-group-text cursor-pointer">
+							<i class="feather font-small-4" 
+							 [ngClass]="{ 
+							  'icon-eye-off': passwordTextType,
+							  'icon-eye': !passwordTextType
+							}" 
+							 (click)="togglePasswordTextType()"></i>
+							</span>
+					  </div> -->
+					</div>
+					<div *ngIf="submitted && f.password.errors" class="invalid-feedback"
+					  [ngClass]="{ 'd-block': submitted && f.password.errors }">
+					  <div *ngIf="f.password.errors.required">Password is required</div>
+					</div>
+				  </div>
 
-					<div class="container-login100-form-btn">
-						<button class="login100-form-btn">
-							Login
-						</button>
-					</div>
+				  <div class="text-center pt-1 mb-5 pb-1">
+					<button class="btn  btn-block btn-danger fa-lg gradient-custom-2 mb-3" type="submit" rippleEffect>
+						
+						Log
+					  in
+					
+					</button>
+					<a class="text-muted text-danger" href="#!">Forgot password?</a>
+				  </div>
 
-					<div class="text-center p-t-90">
-						<a class="txt1" href="#">
-							Forgot Password?
-						</a>
-					</div>
+  
+
 				</form>
-			</div>
-		</div>
-	</div>
-	
 
-	<div id="dropDownSelect1"></div>
+			  </div>
+			<div class="row g-0">
+			  <!-- <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+				<div class="text-white px-3 py-4 p-md-5 mx-md-4">
+				  <h1 class="mb-4">Ⓐⓑⓞⓤⓣ Ⓤⓢ</h1>
+				  <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+					exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+				</div>
+			  </div> -->
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </section>

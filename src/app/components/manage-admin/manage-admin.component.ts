@@ -36,9 +36,10 @@ export class ManageAdminComponent implements OnInit {
   ngOnInit(): void {
     this.adminEndPoint.list()
       .subscribe({
-        next: (response) => this.adminResources = response.data,
+        next: (data) => this.adminResources = data,
         error: (error) => console.log(error),
       });
+      
   }
   showForm() {
    

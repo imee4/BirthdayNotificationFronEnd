@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { GroupsEndPoint } from 'src/app/main/api/endpoints/groups.endpoint';
 import { CreateGroup } from 'src/app/main/api/models/requests/create-group.model';
-import { GroupsResources } from 'src/app/main/api/models/resources/group-resource.mdel';
+import { GroupsResources } from 'src/app/main/api/models/resources/group-resource.model';
 import Swal from 'sweetalert2'; 
 
 @Component({
@@ -16,8 +16,9 @@ export class ManageGroupComponent implements OnInit {
 
   groupResources:GroupsResources[]=[];
   apiModel:CreateGroup={
-    admin_id: 0,
-    group_name: ''
+    name: 0,
+    group_name: '',
+    id: 0
   }
   displayForm = false;
   operation = 'Add';
@@ -33,7 +34,11 @@ export class ManageGroupComponent implements OnInit {
   ngOnInit(): void {
     this.groupsEndpoint.list()
       .subscribe({
-        next: (response) => this.groupResources = response.data,
+        next: (data) => {
+          this.groupResources = data;
+          console.log("Resources:", this.groupResources);
+          console.log("Data:", data);
+        },
         error: (error) => console.log(error),
       });
   }
@@ -87,10 +92,10 @@ save() {
   );
 }
 updateList(id, updateAddUsertResource) {
-  this.groupResources = this.groupResources.filter(e => e.admin_id !== id);
+  this.groupResources = this.groupResources.filter(e => e.id !== id);
   this.groupResources.push(updateAddUsertResource);
   this.groupResources.sort(function (a, b) {
-    return a.admin_id - b.admin_id;
+    return a.id - b.id;
   });
 }
 resetForm() {
@@ -113,7 +118,7 @@ deleteItem(id) {
       this.groupsEndpoint.delete(id.row.data.id).subscribe(
         _ => {
           this.groupResources = this.groupResources.filter(
-            e => e.admin_id !== id.row.data.id
+            e => e.id !== id.row.data.id
           );
           // this.alert.success('Record deleted');
           Swal.fire({
@@ -146,12 +151,12 @@ addItem() {
 }
 loadItem(id) {
   let addUserResource = this.groupResources.find(
-    item => item.admin_id === id.row.data.id
+    item => item.id === id.row.data.id
   );
   console.log(addUserResource);
   Object.assign(this.apiModel, addUserResource);
   this.id = id.row.data.id;
-  this.admin_id =this.apiModel.admin_id; 
+  this.id =this.apiModel.id; 
   this.group_name = this.apiModel.group_name; 
   
   this.operation = 'Update';

@@ -8,15 +8,9 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 import { UserLayoutComponent } from "./layouts/user-layout/user-layout/user-layout.component";
 // import { AdminLayout2Component } from "./layouts/admin-layout2/admin-layout2.component";
 
-const routes: Routes = [
+const routes: Routes = [ 
   {
-    path: "",
-    redirectTo: "dashboard",
-    pathMatch: "full"
-  },
-  
-  {
-    path: "",
+    path: "admin",
     component: AdminLayoutComponent,
     children: [
       {
@@ -26,7 +20,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: "",
+    path: "user",
     component: UserLayoutComponent,
     children: [
       {
@@ -36,7 +30,7 @@ const routes: Routes = [
     ]
   },
    {
-    path: "",
+    path: "auth",
     component: AuthLayoutComponent,
     children: [
       {
@@ -44,6 +38,11 @@ const routes: Routes = [
         loadChildren: () => import ("./layouts/auth-layout/auth-layout.module").then(m => m.AuthLayoutModule)
       }
     ]
+  },
+  {
+    path: "",
+    redirectTo: "user/dashboard2",
+    pathMatch: "full"
   },
   // {
   //   path: '**',

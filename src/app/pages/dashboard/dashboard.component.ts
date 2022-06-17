@@ -1,5 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import Chart from 'chart.js';
+import { AdminCountEndpoint } from "src/app/main/api/endpoints/admin-count.endpoin";
+import { BirthDaysCountEndpoint } from "src/app/main/api/endpoints/birthdays-count.endpoin";
+import { GroupCountEndPoint } from "src/app/main/api/endpoints/group-count.endpoint";
+import { UsersCountEndpoint } from "src/app/main/api/endpoints/users-count.endpoint";
+import { AdminCountModel, BirthDaysCountModel, GroupCountModel, UserCountModel, UsersCountModel } from "src/app/main/api/models/resources/count.model";
 
 @Component({
   selector: "app-dashboard",
@@ -15,11 +20,41 @@ export class DashboardComponent implements OnInit {
   // public clicked1: boolean = false;
   // public clicked2: boolean = false;
 
-  constructor() {} 
+  usersCountModel:UsersCountModel[]=[];
+  birthdaysCountModel: BirthDaysCountModel[]=[];
+  groupCountModel: GroupCountModel[]=[];
+  adminCountModel:AdminCountModel[]=[];
+  constructor(private usersCountEndPoint: UsersCountEndpoint,
+              private birthDaysCountEndpoint: BirthDaysCountEndpoint,
+              private groupCountEndPoint: GroupCountEndPoint,
+              private AdminCountEndpoint: AdminCountEndpoint,
+              ) {} 
 
     public contentHeader: object;
 
     ngOnInit(): void {
+
+      this.usersCountEndPoint.list()
+      .subscribe({
+        next: (data) => this.usersCountModel = data,
+        error: (error) => console.log(error),
+      });
+      this.birthDaysCountEndpoint.list()
+      .subscribe({
+        next: (data) => this.birthdaysCountModel = data,
+        error: (error) => console.log(error),
+      });
+      this.groupCountEndPoint.list()
+      .subscribe({
+        next: (data) => this.groupCountModel = data,
+        error: (error) => console.log(error),
+      });
+      this.AdminCountEndpoint.list()
+      .subscribe({
+        next: (data) => this.adminCountModel= data,
+        error: (error) => console.log(error),
+      });
+
       this.contentHeader = {
         headerTitle: 'Revenue',
         actionButton: true,
@@ -38,6 +73,7 @@ export class DashboardComponent implements OnInit {
           ]
         }
       };
+      
     }
   //   var gradientChartOptionsConfigurationWithTooltipBlue: any = {
   //     maintainAspectRatio: false,

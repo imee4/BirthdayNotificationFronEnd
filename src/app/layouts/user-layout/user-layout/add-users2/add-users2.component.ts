@@ -15,13 +15,13 @@ export class AddUsers2Component implements OnInit {
 
   
   @ViewChild('form') form: NgForm;
-  displayForm = false;
+  displayForm = true;
   operation = 'Add'; 
     id:number;
     email:string;
     name:string;
     phone_number:number;
-    dob:Date;
+    dob:string;
     gender:string;
  
   addUserResources: AddUserResources[]=[]; 
@@ -71,7 +71,7 @@ export class AddUsers2Component implements OnInit {
     // ); 
     this.addUserEndpoint.list()
     .subscribe({
-      next: (response) => this.addUserResources = response.data,
+      next: (data) => this.addUserResources = data,
       error: (error) => console.log(error),
     });
   }

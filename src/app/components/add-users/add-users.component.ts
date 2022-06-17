@@ -5,6 +5,8 @@ import { AddUserEndpoint } from 'src/app/main/api/endpoints/add-user.endpoint';
 import { AddUserResources } from 'src/app/main/api/models/resources/add-user.model';
  
 import Swal from 'sweetalert2';
+import { GroupsEndPoint } from 'src/app/main/api/endpoints/groups.endpoint';
+import { GroupsResources } from 'src/app/main/api/models/resources/group-resource.model';
 
 @Component({
   selector: 'app-add-users',
@@ -15,7 +17,7 @@ export class AddUsersComponent implements OnInit {
 
   
   @ViewChild('form') form: NgForm;
-  displayForm = false;
+  displayForm = true;
   operation = 'Add'; 
     id:number;
     email:string;
@@ -25,6 +27,8 @@ export class AddUsersComponent implements OnInit {
     gender:string;
  
   addUserResources: AddUserResources[]=[]; 
+  groupsResources: GroupsResources[]=[]; 
+  
   apiModel:CreateUser = {
     id: 0,
     profile: 0,
@@ -39,7 +43,8 @@ export class AddUsersComponent implements OnInit {
   user_type: number;
 
    
-  constructor(private addUserEndpoint:AddUserEndpoint) {  
+  constructor(private addUserEndpoint:AddUserEndpoint,
+              private groupsEndPoint: GroupsEndPoint) {  
     this.loadItem = this.loadItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
   }
@@ -71,7 +76,12 @@ export class AddUsersComponent implements OnInit {
     // ); 
     this.addUserEndpoint.list()
     .subscribe({
-      next: (response) => this.addUserResources = response.data,
+      next: (data) => this.addUserResources = data,
+      error: (error) => console.log(error),
+    });
+    this.groupsEndPoint.list()
+    .subscribe({
+      next: (data) => this.groupsResources = data,
       error: (error) => console.log(error),
     });
   }
@@ -93,7 +103,7 @@ save() {
   Swal.showLoading( );
  
   let httpCall =
-    this.operation === 'Update'
+    this.operation === 'Add'
       ? this.addUserEndpoint.update(this.id,this.apiModel)    
       : this.addUserEndpoint.create(this.apiModel);
   httpCall.subscribe(

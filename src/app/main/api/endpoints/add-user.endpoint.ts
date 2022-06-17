@@ -7,12 +7,12 @@ import { AddUserResources } from "../models/resources/add-user.model";
     providedIn: 'root',
 })
 export class AddUserEndpoint {
-    baseUrl = `${environment.apiUrl}/admin/register`;
+    baseUrl = `${environment.apiUrl}api/admin`;
 
     constructor(private readonly httpClient: HttpClient) {}
 
     list() {
-        return this.httpClient.get<{ data: AddUserResources[] }>(`${this.baseUrl}`);
+        return this.httpClient.get<AddUserResources[] >(`${this.baseUrl}`);
     }
 
     single(id: number) {

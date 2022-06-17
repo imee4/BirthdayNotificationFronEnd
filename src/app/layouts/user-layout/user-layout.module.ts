@@ -14,7 +14,10 @@ import { RouterModule } from '@angular/router';
 import { DxButtonModule, DxChartModule, DxCheckBoxModule, DxDataGridModule, DxDateBoxModule, DxFileUploaderModule, DxFormModule, DxFunnelModule, DxPieChartModule, DxPivotGridModule, DxSelectBoxModule, DxSpeedDialActionModule, DxTabPanelModule, DxTextAreaModule, DxToolbarModule } from 'devextreme-angular';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { AddUsers2Component } from './user-layout/add-users2/add-users2.component';
-import { Dashboard2Component } from './user-layout/dashboard2/dashboard2.component';
+import { Dashboard2Component } from './user-layout/dashboard2/dashboard2.component'; 
+import { ListOfUsersComponent } from './list-of-users/list-of-users.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
 
 
 @NgModule({
@@ -25,6 +28,7 @@ import { Dashboard2Component } from './user-layout/dashboard2/dashboard2.compone
     Footer2Component,
     AddUsers2Component,
     Dashboard2Component,
+    ListOfUsersComponent,
   ],
   imports: [
     CommonModule,
@@ -60,6 +64,10 @@ import { Dashboard2Component } from './user-layout/dashboard2/dashboard2.compone
     DxFormModule,
     DxDataGridModule,
     DxSpeedDialActionModule, 
+    NgSelectModule,
+    NgSelectModule
+
+  
   ]
 })
 export class UserLayoutModule { }

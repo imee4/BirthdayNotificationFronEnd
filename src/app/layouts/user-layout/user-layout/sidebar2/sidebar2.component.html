@@ -1,6 +1,6 @@
-<div class="logo">
+<div class="logo ">
   <!-- <a href="#" class="simple-text logo-mini"> -->
-    <div class=" ">
+    <div class="">
       <!-- <img src="./assets/img/angular2-logo-white.png" /> -->
       <!-- <i _ngcontent-tix-c35="" class="icon-paper tim-icons"></i> -->
     </div>
@@ -9,7 +9,8 @@
     MENU
   </a>
 </div>
-<div class="sidebar-wrapper">
+<div class="sidebar-wrapper" style="background-image: url('../../../../../assets/img/Glitter_Balloons.png');">
+
   <ul class="nav">
     <li
       routerLinkActive="active"
@@ -18,7 +19,7 @@
     >
       <a [routerLink]="[menuItem.path]">
         <i class="tim-icons  {{ menuItem.icon }}"></i>
-        <p>{{ menuItem.title }}</p>
+        <h6 class="">{{ menuItem.title }}</h6>
       </a>
     </li>
   </ul> 
