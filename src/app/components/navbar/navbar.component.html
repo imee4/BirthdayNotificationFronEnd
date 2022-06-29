@@ -10,7 +10,7 @@
       </div>
       <!-- {{ getTitle() }} -->
       <i _ngcontent-tix-c35="" class="icon-gift-2 tim-icons txt-danger" style="color: red;"></i><a class=" 
-      navbar-brand txt-xl display-1" href="javascript:void(0)">
+      navbar-brand txt-xl display-1" href="">
       BirthDay Notification</a>
     </div>
     <button
@@ -41,41 +41,42 @@
           <!-- </button> -->
         </li>
         <li class=" nav-item" ngbDropdown>
-           
+        
           
         </li>
+        
         <li class=" nav-item" ngbDropdown>
           <a
             class=" nav-link"
             data-toggle="dropdown"
             href="javascript:void(0)"
-            ngbDropdownToggle
-          >
-            <div class="">
-              <img alt="" src="../../../assets/img/gift boxes.png" width="170" height="auto" />
-            </div>
+            ngbDropdownToggle>
+          <!-- <p>{{adminNameCountModel}}</p> -->
+          <div class="photo">
+            <img alt="" src="../../../assets/img/anime3.png" width="35%" height="auto" />
+          </div>
             <!-- <b class=" caret d-none d-lg-block d-xl-block"> </b> -->
             <!-- <p class=" d-lg-none">Log out</p> -->
           </a>
-          <!-- <ul class=" dropdown-navbar" ngbDropdownMenu>
-            <li class=" nav-link">
+           <ul class=" dropdown-navbar" ngbDropdownMenu>
+            <!-- <li class=" nav-link">
               <a class=" nav-item" href="javascript:void(0)" ngbDropdownItem>
                 Profile
               </a>
-            </li>
-            <li class=" nav-link">
+            </li> -->
+            <!-- <li class=" nav-link">
               <a class=" nav-item" href="javascript:void(0)" ngbDropdownItem>
                 Settings
               </a>
-            </li>
+            </li>--> 
             <li class=" dropdown-divider"></li>
             <li class=" nav-link">
-              <a class=" nav-item" href="javascript:void(0)" ngbDropdownItem>
+              <a class=" nav-item" href="javascript:void(0)" (click)="logout()" ngbDropdownItem>
                 Log out
               </a>
             </li>
           </ul>
-        </li> -->
+        <!-- </li>   -->
         <li class=" separator d-lg-none"></li> 
       </ul>
     </div>

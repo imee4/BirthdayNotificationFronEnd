@@ -5,6 +5,11 @@ import { AddUserEndpoint } from 'src/app/main/api/endpoints/add-user.endpoint';
 import { AddUserResources } from 'src/app/main/api/models/resources/add-user.model';
  
 import Swal from 'sweetalert2';
+import { GroupCountEndPoint } from 'src/app/main/api/endpoints/group-count.endpoint';
+import { GroupsResources } from 'src/app/main/api/models/resources/group-resource.model';
+import { GroupsEndPoint } from 'src/app/main/api/endpoints/groups.endpoint';
+import { UserEndPoint } from 'src/app/main/api/endpoints/user.endpoint';
+import { CreateAdminUser } from 'src/app/main/api/models/requests/create-user.model';
 
 @Component({
   selector: 'app-add-users2',
@@ -21,16 +26,23 @@ export class AddUsers2Component implements OnInit {
     email:string;
     name:string;
     phone_number:number;
-    dob:string;
+    dob:Date;
     gender:string;
- 
+    selectedGender: number;
+
+    Gender = [
+        { id: 1, gender: 'Male' },
+        { id: 2, gender: 'Female' }, 
+    ];
+  groupResources: GroupsResources[]=[]; 
   addUserResources: AddUserResources[]=[]; 
-  apiModel:CreateUser = {
+  apiModel:CreateAdminUser= {
     id: 0,
-    profile: 0,
-    user: 0,
     email: '',
-    password: ''
+    gender: 'Select Gender',
+    name: '',
+    phone_number: 0,
+    dob: undefined
   };
 
   public contentHeader: object;
@@ -39,30 +51,32 @@ export class AddUsers2Component implements OnInit {
   user_type: number;
 
    
-  constructor(private addUserEndpoint:AddUserEndpoint) {  
+  constructor(private addUserEndpoint:AddUserEndpoint,
+              private UserEndpoint: UserEndPoint,
+              private groupEndPoint: GroupsEndPoint) {  
     this.loadItem = this.loadItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
   }
 
   ngOnInit(): void {
-    this.contentHeader = {
-      headerTitle: 'Manage Courts',
-      actionButton: true,
-      breadcrumb: {
-        type: '',
-        links: [
-          {
-            name: 'Home',
-            isLink: true,
-            link: '/landing'
-          },
-          {
-            name: 'Manage Courts',
-            isLink: false
-          }
-        ]
-      }
-    };
+    // this.contentHeader = {
+    //   headerTitle: 'Manage Courts',
+    //   actionButton: true,
+    //   breadcrumb: {
+    //     type: '',
+    //     links: [
+    //       {
+    //         name: 'Home',
+    //         isLink: true,
+    //         link: '/landing'
+    //       },
+    //       {
+    //         name: 'Manage Courts',
+    //         isLink: false
+    //       }
+    //     ]
+    //   }
+    // };
     // this.addUserEndpoint.list().subscribe(
     //   ({ data }) => this.addUserResources = data,
     //   err => {
@@ -72,6 +86,11 @@ export class AddUsers2Component implements OnInit {
     this.addUserEndpoint.list()
     .subscribe({
       next: (data) => this.addUserResources = data,
+      error: (error) => console.log(error),
+    });
+    this.groupEndPoint.list()
+    .subscribe({
+      next: (data) => this.groupResources = data,
       error: (error) => console.log(error),
     });
   }
@@ -93,9 +112,7 @@ save() {
   Swal.showLoading( );
  
   let httpCall =
-    this.operation === 'Update'
-      ? this.addUserEndpoint.update(this.id,this.apiModel)    
-      : this.addUserEndpoint.create(this.apiModel);
+  this.UserEndpoint.create(this.apiModel);
   httpCall.subscribe(
     success => {
       Swal.close();
@@ -140,9 +157,11 @@ updateList(id, updateAddUsertResource) {
     Object.assign(this.apiModel, addUserResource);
     this.id = id.row.data.id;
     this.email =this.apiModel.email; 
-    this.password = this.apiModel.password;
-    this.profile_id =this.apiModel.profile; 
-    
+    this.gender = this.apiModel.gender;
+    this.phone_number =this.apiModel.phone_number;  
+    this.dob =this.apiModel.dob;
+
+     
     this.operation = 'Update';
     this.showForm();
   }

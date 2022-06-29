@@ -12,7 +12,8 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { AppRoutingModule } from "./app-routing.module";
 import { ComponentsModule } from "./components/components.module";
 import { LandingComponent } from './landing/landing.component';
-import { PageNoFoundComponent } from './page-no-found/page-no-found.component';  
+import { PageNoFoundComponent } from './page-no-found/page-no-found.component';
+import { AddGroupComponent } from './components/add-group/add-group.component'; 
 // import { AddUsersComponent } from './add-users/add-users.component';
 
 @NgModule({
@@ -31,7 +32,9 @@ import { PageNoFoundComponent } from './page-no-found/page-no-found.component';
   declarations: [
     AppComponent,
     LandingComponent,
-    PageNoFoundComponent,  
+    PageNoFoundComponent,
+    // ExistingUserComponent,
+    // AddGroupComponent,  
     //  AdminLayoutComponent,
     //   AuthLayoutComponent,
       //  AddUsersComponent

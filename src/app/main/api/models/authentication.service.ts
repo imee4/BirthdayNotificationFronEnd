@@ -5,8 +5,7 @@ import { map } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
 import { AuthUser } from './resources/auth-user';
-import { Role } from './resources/role';
-import { Router } from '@angular/router';
+import { Role } from './resources/role'; 
 
 export interface LoginResponse {
     access_token: string;
@@ -73,7 +72,7 @@ export class AuthenticationService {
           // login successful if there's a jwt token in the response
           if (response && response.access_token) {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-            
+            console.log(response.access_token);
             const responseUser = response.user;
             let authUser = new AuthUser();
             authUser = { ...responseUser, role: response.role, token: response.access_token, avatar: "avatar-s-11.jpg" };
@@ -82,15 +81,15 @@ export class AuthenticationService {
             localStorage.setItem('currentUser', JSON.stringify(authUser));
             // this.router.navigate(['items'], { relativeTo: this.route });
             setTimeout(() => {
-              this._toastrService.success(
-                'You have successfully logged in as a ' +
-                  'User' +
-                  ' user to Birthday Notification App. Now you can start to explore. Enjoy!',
+              this._toastrService.show(
+                'You have successfully logged in as' +
+                  ' User ' + 
+                  'to Birthday Notification. Now you can start to explore. Enjoy!',
                 '👋 Welcome, ' + authUser.email + '!',
-                { toastClass: 'toast ngx-toastr', positionClass: 'toast-top-right',closeButton: true }
+                { toastClass: 'toast ngx-toastr', positionClass: 'toast-top-center',closeButton: true }
                 // { toastClass: 'toast ngx-toastr', positionClass: ' toast-top-right', closeButton: true }
               );
-            }, 2500);
+            }, 4000);
 
             // notify
             this.currentUserSubject.next(authUser);

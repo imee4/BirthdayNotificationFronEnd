@@ -10,7 +10,7 @@
       <!-- <app-content-header [contentHeader]="contentHeader"></app-content-header> -->
       <!-- / Subject Form section start -->
       <div class="card" *ngIf="displayForm">
-        <div class="card-body">
+        <div class="card-body" style="border:solid 1px red  ;">
             <section id="multiple-column-form">
                 <div class="row match-height">
                     <div class="col-12">
@@ -47,7 +47,7 @@
                                                 <label for="GroupName"
                                                     [class.text-danger]="GroupName.invalid && GroupName.touched">GroupName
                                                 </label><i class="text-danger">*</i>
-                                                <input type="text" maxlength="50" id="group_name" name="group_name" #GroupName="ngModel"
+                                                <input type="text" style="background-color: white ;" maxlength="50" id="group_name" name="group_name" #GroupName="ngModel"
                                                     [(ngModel)]="apiModel.group_name"
                                                     [class.is-invalid]="GroupName.invalid && GroupName.touched"
                                                     class="form-control" placeholder="Enter GroupName..." required>
@@ -95,7 +95,7 @@
     
       <!-- /.box-header -->
       <div class="card-content collapse show">
-          <div class="card-body">
+          <div class="card-body" style="border:solid 1px red  ;">
               <div class="table-responsive"> 
      
 
@@ -107,15 +107,15 @@
                       <dxo-paging [pageSize]="10"></dxo-paging>
                       <dxo-pager [showPageSizeSelector]="true" [showInfo]="true"></dxo-pager>
                       <dxo-filter-row [visible]="true"></dxo-filter-row> 
-                      <dxi-column dataField="id" caption="ID"> </dxi-column>
-                      <dxi-column dataField="profile.name" caption="Admin Name"> </dxi-column>
+                      <!-- <dxi-column dataField="id" caption="ID"> </dxi-column> -->
+                      <!-- <dxi-column dataField="profile.name" caption="Admin Name"> </dxi-column> -->
                       <dxi-column dataField="group_name" caption="Group Name"></dxi-column> 
 
-                      <dxi-column type="buttons" fixed=true>
+                      <!-- <dxi-column type="buttons" fixed=true>
                       <dxi-button icon="edit" text="Edit" [onClick]="loadItem"></dxi-button>
                       <dxi-button icon="trash" text="Delete" [onClick]="deleteItem">
                       </dxi-button>
-                      </dxi-column>
+                      </dxi-column> -->
                   </dx-data-grid>
              </div>
           </div>

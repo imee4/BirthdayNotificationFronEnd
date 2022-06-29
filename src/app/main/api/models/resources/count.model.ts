@@ -33,3 +33,12 @@ export class UsersCountModel{
     count:number;
     
 }
+export class  AdminNameCountModel{
+    
+    count:string;
+    
+}export class GroupNameCountModel{
+    
+    count:number;
+    
+}

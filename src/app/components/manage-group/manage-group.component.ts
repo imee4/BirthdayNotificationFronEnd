@@ -18,7 +18,9 @@ export class ManageGroupComponent implements OnInit {
   apiModel:CreateGroup={
     name: 0,
     group_name: '',
-    id: 0
+    id: 0,
+    admin_id: 0,
+  
   }
   displayForm = false;
   operation = 'Add';
@@ -61,7 +63,7 @@ save() {
  
   let httpCall =
     this.operation === 'Update'
-      ? this.groupsEndpoint.update(this.id,this.apiModel)    
+      ? this.groupsEndpoint.update2(this.id,this.apiModel)    
       : this.groupsEndpoint.create(this.apiModel);
   httpCall.subscribe(
     success => {
@@ -150,13 +152,13 @@ addItem() {
   this.resetForm();
 }
 loadItem(id) {
-  let addUserResource = this.groupResources.find(
+  let groupResource = this.groupResources.find(
     item => item.id === id.row.data.id
   );
-  console.log(addUserResource);
-  Object.assign(this.apiModel, addUserResource);
+  console.log(groupResource);
+  Object.assign(this.apiModel, groupResource);
   this.id = id.row.data.id;
-  this.id =this.apiModel.id; 
+  this.admin_id =this.apiModel.admin_id; 
   this.group_name = this.apiModel.group_name; 
   
   this.operation = 'Update';

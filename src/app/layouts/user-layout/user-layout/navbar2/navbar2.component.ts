@@ -4,6 +4,10 @@ import { Location } from "@angular/common";
 import { Router } from "@angular/router";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap'; 
 import { ROUTES } from "../sidebar2/sidebar2.component";
+import { AuthenticationService } from "src/app/main/api/models/authentication.service";
+import { AdminNameCountModel, GroupNameCountModel } from "src/app/main/api/models/resources/count.model"; 
+import { GroupNameCountEndpoint } from "src/app/main/api/endpoints/group-name-cout.endpoint";
+import { AdminNameCountEndpoint } from "src/app/main/api/endpoints/admin-name-count.endpoint";
 
 @Component({
   selector: "app-navbar2",
@@ -16,14 +20,18 @@ export class Navbar2Component implements OnInit, OnDestroy {
   mobile_menu_visible: any = 0;
   private toggleButton: any;
   private sidebarVisible: boolean;
-
+  auth:AuthenticationService;
+  groupNameCountModel:GroupNameCountModel[]=[];
+  adminNameCountModel:AdminNameCountModel[]=[];
   public isCollapsed = true;
 
   closeResult: string;
 
   constructor(
     location: Location,
-    private element: ElementRef,
+    private groupNameCountEndpoint : GroupNameCountEndpoint,
+    private adminNameCountEndpoint:AdminNameCountEndpoint,
+    private  element: ElementRef,
     private router: Router,
     private modalService: NgbModal
   ) {
@@ -54,6 +62,15 @@ export class Navbar2Component implements OnInit, OnDestroy {
         this.mobile_menu_visible = 0;
       }
     });
+      this.groupNameCountEndpoint.list()
+       .subscribe({ next:(data)=> this.groupNameCountModel=data,
+       error: (error)=> console.log(error),
+        });
+        this.adminNameCountEndpoint.list()
+        .subscribe({ next:(data)=> this.adminNameCountModel=data,
+        error: (error)=> console.log(error),
+         });
+        
   }
 
   collapse() {
@@ -193,5 +210,12 @@ export class Navbar2Component implements OnInit, OnDestroy {
   }
   ngOnDestroy(){
      window.removeEventListener("resize", this.updateColor);
+  }
+  logout() {
+    // remove user from local storage to log user out
+   
+    // notify
+    this.auth.logout();
+    this.router.navigate(['/auth/login']);
   }
 }

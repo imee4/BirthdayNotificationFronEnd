@@ -8,7 +8,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './auth-layout.component.html',
   styleUrls: ['./auth-layout.component.scss']
 })
-export class AuthLayoutComponent implements OnInit, OnDestroy {
+export class AuthLayoutComponent implements OnInit {
   // public menuItems: any[];
   // test: Date = new Date();
   // closeResult: string;
@@ -19,9 +19,7 @@ export class AuthLayoutComponent implements OnInit, OnDestroy {
   // private sidebarVisible: boolean;
 
   constructor(private router: Router, private modalService: NgbModal) { }
-  ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
-  }
+ 
 
 //   changeSidebarColor(color){
 //     var sidebar = document.getElementsByClassName('sidebar')[0];
