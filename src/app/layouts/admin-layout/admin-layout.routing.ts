@@ -12,6 +12,8 @@ import { MakeAdminComponent } from "src/app/components/make-admin/make-admin.com
 import { ManageAdminComponent } from "src/app/components/manage-admin/manage-admin.component"; 
 import { ManageGroupComponent } from "src/app/components/manage-group/manage-group.component";
 import { ListOfUsersComponent } from "./list-of-users/list-of-users.component";
+import { ListOfGroupComponent } from "./list-of-group/list-of-group.component";
+import { AddGroupComponent } from "src/app/components/add-group/add-group.component";
 // import { RtlComponent } from "../../pages/rtl/rtl.component";
 
 export const AdminLayoutRoutes: Routes = [
@@ -27,7 +29,9 @@ export const AdminLayoutRoutes: Routes = [
   { path: "manage-admin", component: ManageAdminComponent }, 
   { path: "manage-groups", component: ManageGroupComponent }, 
   { path: "list-of-users", component: ListOfUsersComponent },
-  { path: "list-of-groups", component: ListOfUsersComponent },
+  { path: "list-of-groups", component: ListOfGroupComponent }, 
+  { path: "add-group", component: AddGroupComponent },
+
 
   // { path: "rtl", component: RtlComponent }
 ];

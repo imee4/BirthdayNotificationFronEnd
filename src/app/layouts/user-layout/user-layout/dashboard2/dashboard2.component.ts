@@ -1,5 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import Chart from 'chart.js';
+import { AdminNameCountEndpoint } from "src/app/main/api/endpoints/admin-name-count.endpoint";
+import { BirthDayCountEndpoint } from "src/app/main/api/endpoints/birthday-count.endpoint";
+import { GroupNameCountEndpoint } from "src/app/main/api/endpoints/group-name-cout.endpoint";
+import { UserCountEndpoint } from "src/app/main/api/endpoints/user-count.endpoint";
+import { AdminNameCountModel, BirthDayCountModel,  GroupNameCountModel,  UserCountModel } from "src/app/main/api/models/resources/count.model";
 
 @Component({
   selector: "app-dashboard2",
@@ -14,8 +19,14 @@ export class Dashboard2Component implements OnInit {
   // public clicked: boolean = true;
   // public clicked1: boolean = false;
   // public clicked2: boolean = false;
-
-  constructor() {} 
+  birthdayCountModel:BirthDayCountModel[]=[];
+  userCountModel: UserCountModel[]=[];
+  groupNameCountModel: GroupNameCountModel[]=[];
+  adminNameCountModel: AdminNameCountModel[]=[];
+  constructor(private userCountEndpoint:UserCountEndpoint,
+              private birthdayCountEndpoint:BirthDayCountEndpoint,
+              private groupNameCountEndpoint:GroupNameCountEndpoint,
+              private adminNameCountEndpoint:AdminNameCountEndpoint,) {} 
 
     public contentHeader: object;
     
@@ -39,6 +50,23 @@ export class Dashboard2Component implements OnInit {
           ]
         }
       };
+      this.birthdayCountEndpoint.list()
+      .subscribe({ next:(data)=> this.birthdayCountModel=data,
+      error: (error)=> console.log(error),
+       });
+       this.userCountEndpoint.list()
+      .subscribe({ next:(data)=> this.userCountModel=data,
+      error: (error)=> console.log(error),
+       });
+      //  this.groupNameCountEndpoint.list()
+      //  .subscribe({ next:(data)=> this.groupNameCountModel=data,
+      //  error: (error)=> console.log(error),
+      //   });
+        // this.adminNameCountEndpoint.list()
+        // .subscribe({ next:(data)=> this.adminNameCountModel=data,
+        // error: (error)=> console.log(error),
+        //  });
+       
     }
   //   var gradientChartOptionsConfigurationWithTooltipBlue: any = {
   //     maintainAspectRatio: false,

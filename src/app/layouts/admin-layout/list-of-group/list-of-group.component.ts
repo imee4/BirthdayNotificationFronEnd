@@ -16,9 +16,10 @@ export class ListOfGroupComponent implements OnInit {
 
   groupResources:GroupsResources[]=[];
   apiModel:CreateGroup={
-    id:undefined,
+    id: undefined,
     name: 0,
-    group_name: ''
+    group_name: '',
+    admin_id: 0
   }
   displayForm = false;
   operation = 'Add';

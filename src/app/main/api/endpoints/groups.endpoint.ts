@@ -30,4 +30,7 @@ export class GroupsEndPoint {
     update(id: number, data) {
         return this.httpClient.put<{ data: GroupsResources }>(`${this.baseUrl}/${id}`, data);
     }
+    update2(id: number, data) {
+        return this.httpClient.post<{ data: GroupsResources }>(`${this.baseUrl}/${id}`, data);
+    }
 }

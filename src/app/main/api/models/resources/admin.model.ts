@@ -4,10 +4,11 @@ import { GroupsResources } from "./group-resource.model";
 
 export class AdminResources {
     
-    profile_id:number;
-    user_type_id:number;
+    id:number;
+    name:string; 
     email:string;
     password:string;
     profile: AddUserResources;
     group: GroupsResources;
+    
 }

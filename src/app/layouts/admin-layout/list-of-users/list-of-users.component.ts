@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { AddUserEndpoint } from 'src/app/main/api/endpoints/add-user.endpoint';
 import { CreateUser } from 'src/app/main/api/models/requests/request/create-super-admin.model';
 import { AddUserResources } from 'src/app/main/api/models/resources/add-user.model';
+import { GroupsResources } from 'src/app/main/api/models/resources/group-resource.model';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -26,16 +27,19 @@ export class ListOfUsersComponent implements OnInit {
     addUserResources: AddUserResources[]=[]; 
     apiModel:CreateUser = {
       id: 0,
-      profile: 0,
       user: 0,
       email: '',
-      password: ''
+      password: '',
+      gender: '',
+      profile: undefined,
+      group: new GroupsResources
     };
   
     public contentHeader: object;
     password: string;
     profile_id: number;
     user_type: number;
+  group: string;
   
 
   constructor(private addUserEndpoint:AddUserEndpoint) {  
@@ -116,8 +120,9 @@ updateList(id, updateAddUsertResource) {
     Object.assign(this.apiModel, addUserResource);
     this.id = id.row.data.id;
     this.email =this.apiModel.email; 
-    this.password = this.apiModel.password;
-    this.profile_id =this.apiModel.profile; 
+    this.group=this.apiModel.group.group_name
+    this.name =this.apiModel.profile?.name;
+    this.gender=this.apiModel.gender; 
     
     this.operation = 'Update';
     this.showForm();
@@ -173,6 +178,6 @@ updateList(id, updateAddUsertResource) {
     this.form?.reset();
     this.operation = "Add"; 
   }
-
+ 
 
 }
