@@ -8,8 +8,8 @@
           <span class=" navbar-toggler-bar bar3"> </span>
         </button>
       </div>
-      <!-- {{ getTitle() }} -->
-      <i _ngcontent-tix-c35="" class="icon-gift-2 tim-icons txt-danger" style="color: red;"></i><a class=" 
+      <!-- {{ getTitle() }} --> 
+      <i _ngcontent-tix-c35="" class="icon-gift-2 tim-icons txt-danger" style="color: red;"></i><a style="display: block;" class=" 
       navbar-brand txt-xl display-1" href="#">
       BirthDay Notification</a>
     </div>
@@ -27,8 +27,11 @@
       <span class=" navbar-toggler-bar navbar-kebab"> </span>
     </button>
     <div class=" navbar-collapse" [ngbCollapse]=[isCollapsed] id="navigation">
+      <h2  class="container danger" style="text-align: center; display: block;text-shadow: 2px 2px #ff0000;">{{groupNameCountModel| uppercase}}</h2>
      <ul class=" navbar-nav ml-auto">
-       <!-- <li class=" search-bar input-group">
+     
+       <li class=" search-bar input-group">
+        
           <button
             class=" btn btn-link"
             data-target="#searchModal"
@@ -36,11 +39,12 @@
             (click)="open(content)"
             id="search-button"
           >
-            <i class=" tim-icons icon-zoom-split"> </i>
-            <span class=" d-lg-none d-md-block"> Search </span>
+           
+            <!-- <i class=" tim-icons icon-zoom-split"> </i>
+            <span class=" d-lg-none d-md-block"> Search </span> -->
           </button>
         </li>
-        <li class=" nav-item" ngbDropdown>
+        <!-- <li class=" nav-item" ngbDropdown>
           <a
             class=" nav-link"
             data-toggle="dropdown"
@@ -50,8 +54,8 @@
             <div class=" notification d-none d-lg-block d-xl-block"></div>
             <i class=" tim-icons icon-sound-wave"> </i>
             <p class=" d-lg-none">Notifications</p>
-          </a> -->
-          <!-- <ul class=" dropdown-menu-right dropdown-navbar" ngbDropdownMenu>
+          </a> 
+         <ul class=" dropdown-menu-right dropdown-navbar" ngbDropdownMenu>
             <li class=" nav-link">
               <a class=" nav-item" href="javascript:void(0)" ngbDropdownItem>
                 Mike John responded to your email
@@ -66,10 +70,10 @@
               <a class=" nav-item" href="javascript:void(0)" ngbDropdownItem>
                 Your friend Michael is in town
               </a>
-            </li>
+            </li> 
             <li class=" nav-link">
               <a class=" nav-item" href="javascript:void(0)" ngbDropdownItem>
-                Another notification
+               
               </a>
             </li>
             <li class=" nav-link">
@@ -78,7 +82,8 @@
               </a>
             </li>
           </ul> 
-        </li>-->
+        </li> -->
+        
         <li class=" nav-item" ngbDropdown>
           <a
             class=" nav-link"
@@ -86,13 +91,14 @@
             href="javascript:void(0)"
             ngbDropdownToggle
           >
-            <div class=""> 
-              <img alt="" src="../../../assets/img/gift boxes.png" width="100" height="auto" />
+            <div class="photo"> 
+              <img alt="" src="../../../assets/img/anime3.png" width="100" height="auto" />
             </div>
-            <b class=" caret d-none d-lg-block d-xl-block"> </b>
-            <p class=" d-lg-none">Log out</p>
+            <!-- <small>{{adminNameCountModel}}</small> -->
+            <!-- <b class=" caret d-none d-lg-block d-xl-block"> </b>
+            <p class=" d-lg-none">Log out</p> -->
           </a>
-          <ul class=" dropdown-navbar" ngbDropdownMenu>
+            <ul class=" dropdown-navbar" ngbDropdownMenu>  
             <!-- <li class=" nav-link">
               <a class=" nav-item" href="javascript:void(0)" ngbDropdownItem>
                 Profile
@@ -104,12 +110,12 @@
               </a>
             </li> -->
             <!-- <li class=" dropdown-divider"></li> -->
-            <!-- <li class=" nav-link">
-              <a class=" nav-item" href="javascript:void(0)" ngbDropdownItem>
-                Log out
+              <li class=" nav-link">
+              <a style="color: black;" class=" nav-item" (click)="logout()" ngbDropdownItem>
+                Logout
               </a>
-            </li> -->
-          </ul>
+            </li> 
+          </ul>  
         </li>
         <li class=" separator d-lg-none"></li>
       </ul>
@@ -119,12 +125,12 @@
 
 <ng-template #content let-modal>
   <div class=" modal-header">
-    <input
+    <!-- <input
       class=" form-control"
       id="inlineFormInputGroup"
       placeholder="SEARCH"
       type="text"
-    /> 
+    />  -->
     <button
       aria-label="Close"
       class=" close"

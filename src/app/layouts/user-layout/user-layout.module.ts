@@ -18,6 +18,8 @@ import { Dashboard2Component } from './user-layout/dashboard2/dashboard2.compone
 import { ListOfUsersComponent } from './list-of-users/list-of-users.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
+import { ListOfTodaysBirthdayComponent } from './user-layout/list-of-todays-birthday/list-of-todays-birthday.component';
+import { ExistingUserComponent } from './user-layout/existing-user/existing-user.component';
 
 
 @NgModule({
@@ -29,6 +31,8 @@ import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
     AddUsers2Component,
     Dashboard2Component,
     ListOfUsersComponent,
+    ListOfTodaysBirthdayComponent,
+    ExistingUserComponent,
   ],
   imports: [
     CommonModule,
@@ -65,7 +69,8 @@ import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
     DxDataGridModule,
     DxSpeedDialActionModule, 
     NgSelectModule,
-    NgSelectModule
+    NgSelectModule,
+    FormsModule
 
   
   ]

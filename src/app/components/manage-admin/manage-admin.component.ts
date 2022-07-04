@@ -1,9 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms'; 
+import { GroupsEndPoint } from 'src/app/main/api/endpoints/groups.endpoint';  
+import { CreateAdmin } from 'src/app/main/api/models/requests/Create-Admin.model';
+import { AddUserResources } from 'src/app/main/api/models/resources/add-user.model';
+import { CreateUserAdminResources } from 'src/app/main/api/models/resources/create-user-admin-resource.model';
+import { GroupsResources } from 'src/app/main/api/models/resources/group-resource.model';
+import { UserAdminResources } from 'src/app/main/api/models/resources/userAdminResource.model';
 import Swal from 'sweetalert2';
-import { AdminEndPoint } from '../../main/api/endpoints/Admin.endpoint';
-import { CreateAdmin } from '../../main/api/models/requests/Create-Admin.model';
-import { AdminResources } from '../../main/api/models/resources/admin.model';
+import { AdminEndPoint } from '../../main/api/endpoints/Admin.endpoint'; 
 
 @Component({
   selector: 'app-manage-admin',
@@ -11,24 +15,40 @@ import { AdminResources } from '../../main/api/models/resources/admin.model';
   styleUrls: ['./manage-admin.component.scss']
 })
 export class ManageAdminComponent implements OnInit {
-
-  @ViewChild('form') form: NgForm;
-  adminResources:AdminResources[]=[];
-  apiModel:CreateAdmin={
-    profile_id: 0,
-    email: '',
-    password: '',
-    user_type_id: 0
-  }
-  
   displayForm = false;
   operation = 'Add';
-  id: any;
-  user_type_id: number;
-  profile_id: number;
-  password: string;
+  @ViewChild('form') form: NgForm;
+
+  selectedGender: number;
+
+  Gender = [
+      { id: 1, gender: 'Male' },
+      { id: 2, gender: 'Female' }, 
+  ];
+  
+  name: string;
+  id: number;
+  groupsResources: GroupsResources[];
+  phone_number: number;
   email: string;
-  constructor(private adminEndPoint: AdminEndPoint) {  
+  dob: string;
+  group: number;
+  // apiModel:CreateAdmin;
+
+  userAdminResources:UserAdminResources[]=[];
+  apiModel:CreateUserAdminResources={
+    id: 0,
+    email: '',
+    name: '',
+    group: new GroupsResources,
+    profile: new AddUserResources,
+    phone_number: 0,
+    dob: '',
+    gender: ''
+  }
+ 
+  constructor(private adminEndPoint: AdminEndPoint, 
+              private groupEndPoint: GroupsEndPoint) {  
     this.loadItem = this.loadItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
   }
@@ -36,15 +56,83 @@ export class ManageAdminComponent implements OnInit {
   ngOnInit(): void {
     this.adminEndPoint.list()
       .subscribe({
-        next: (data) => this.adminResources = data,
+        next: (data) => this.userAdminResources = data,
         error: (error) => console.log(error),
       });
+      this.groupEndPoint.list()
+      .subscribe({
+        next: (data) => this.groupsResources = data,
+        error: (error) => console.log(error),
+      });
+   
       
-  }
-  showForm() {
+  } 
+  deleteItem(id) {
+    Swal.fire({
+      title: 'Delete',
+      text: "Are you sure you want to delete this record?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      customClass: {
+        confirmButton: 'btn btn-primary',
+        cancelButton: 'btn btn-danger ml-1'
+      }
+    }).then(result => {
+      if (result.value) {
+        this.adminEndPoint.delete(id.row.data.id).subscribe(
+          _ => {
+            this.userAdminResources = this.userAdminResources.filter(
+              e => e.id !== id.row.data.id
+            );
+            // this.alert.success('Record deleted');
+            Swal.fire({
+              icon: 'success',
+              title: 'Deleted!',
+              text: 'Your record has been deleted.',
+              customClass: {
+                confirmButton: 'btn btn-success'
+              }
+            });
+          },
+          error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error!!',
+              text: error,
+              customClass: {
+                confirmButton: 'btn btn-danger'
+              }
+            });
+          }
+        );
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      }
+    });
+  }showForm() {
    
     this.displayForm = true;
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }
+
+  loadItem(id) {
+    let userAdminResources = this.userAdminResources.find(
+      item => item.id === id.row.data.id
+    );
+    console.log(userAdminResources);
+    Object.assign(this.apiModel, userAdminResources);
+    this.id = id.row.data.id;
+    this.apiModel.id =this.id; 
+    this.apiModel.name=this.apiModel?.profile?.name;
+    this.apiModel.gender=this.apiModel?.profile?.gender; 
+    this.apiModel.dob=this.apiModel?.profile?.dob;
+    this.apiModel.phone_number=this.apiModel?.profile?.phone_number;
+
+
+    // this.group_name = this.group_name; 
+    
+    this.operation = 'Update';
+    this.showForm();
   }
   hideForm() {
     this.displayForm = false;
@@ -76,91 +164,29 @@ save() {
       });
       this.resetForm();
     },
+ 
     error => {
-      Swal.close();
       console.log(error);
+      Swal.close();
       Swal.fire({
-        icon: 'error',
-        title: 'Error!!',
-        text: error,
+        text:'Process Unsuccessful'+ error.error.message +'error',
+       icon: 'error',
+        title: 'Error!', 
         customClass: {
           confirmButton: 'btn btn-danger'
-        }
-      });
-    }
-  );
+        }});
+    });
 }
-updateList(id, updateAminResource) {
-  this.adminResources = this.adminResources.filter(e => e.profile_id !== id);
-  this.adminResources.push(updateAminResource);
-  this.adminResources.sort(function (a, b) {
-    return a.profile_id - b.profile_id;
+updateList(id, updateuserAdminResources) {
+  this.userAdminResources = this.userAdminResources.filter(e => e.id !== id);
+  this.userAdminResources.push(updateuserAdminResources);
+  this.userAdminResources.sort(function (a, b) {
+    return a.id - b.id;
   });
 }
 resetForm() {
   this.form?.reset();
   this.operation = "Add"; 
 }
-deleteItem(id) {
-  Swal.fire({
-    title: 'Delete',
-    text: "Are you sure you want to delete this record?",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Yes, delete it!',
-    customClass: {
-      confirmButton: 'btn btn-primary',
-      cancelButton: 'btn btn-danger ml-1'
-    }
-  }).then(result => {
-    if (result.value) {
-      this.adminEndPoint.delete(id.row.data.id).subscribe(
-        _ => {
-          this.adminResources = this.adminResources.filter(
-            e => e.profile_id !== id.row.data.id
-          );
-          // this.alert.success('Record deleted');
-          Swal.fire({
-            icon: 'success',
-            title: 'Deleted!',
-            text: 'Your record has been deleted.',
-            customClass: {
-              confirmButton: 'btn btn-success'
-            }
-          });
-        },
-        error => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error!!',
-            text: error,
-            customClass: {
-              confirmButton: 'btn btn-danger'
-            }
-          });
-        }
-      );
-    } else if (result.dismiss === Swal.DismissReason.cancel) {
-    }
-  });
-}
-addItem() {
-  this.showForm();
-  this.resetForm();
-}
-loadItem(id) {
-  let addUserResource = this.adminResources.find(
-    item => item.password === id.row.data.id
-  );
-  console.log(addUserResource);
-  Object.assign(this.apiModel, addUserResource);
-  this.id = id.row.data.id;
-  this.email =this.apiModel.email; 
-  this.password = this.apiModel.password; 
-  this.profile_id = this.apiModel.profile_id; 
-  this.user_type_id = this.apiModel.user_type_id; 
-  
-  this.operation = 'Update';
-  this.showForm();
-}
+ 
 }

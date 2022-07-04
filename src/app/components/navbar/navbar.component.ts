@@ -3,6 +3,9 @@ import { ROUTES } from "../sidebar/sidebar.component";
 import { Location } from "@angular/common";
 import { Router } from "@angular/router";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap'; 
+import { AdminNameCountModel } from "src/app/main/api/models/resources/count.model";
+import { AdminNameCountEndpoint } from "src/app/main/api/endpoints/admin-name-count.endpoint";
+import { AuthenticationService } from "src/app/main/api/models/authentication.service";
 
 @Component({
   selector: "app-navbar",
@@ -11,20 +14,23 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   private listTitles: any[];
+  last:string;
   location: Location;
   mobile_menu_visible: any = 0;
   private toggleButton: any;
   private sidebarVisible: boolean;
-
+  
   public isCollapsed = true;
-
+  
   closeResult: string;
-
+  adminNameCountModel: AdminNameCountModel[]=[];
   constructor(
+    private adminNameCountEndpoint:AdminNameCountEndpoint,
     location: Location,
     private element: ElementRef,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public auth:AuthenticationService
   ) {
     this.location = location;
     this.sidebarVisible = false;
@@ -53,6 +59,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.mobile_menu_visible = 0;
       }
     });
+    this.adminNameCountEndpoint.list()
+    .subscribe({ next:(data)=> this.adminNameCountModel=data,
+    error: (error)=> console.log(error),
+    
+     });
+     console.log(this.adminNameCountModel+'hhhhhhhh i');
+     
   }
 
   collapse() {
@@ -192,5 +205,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(){
      window.removeEventListener("resize", this.updateColor);
+  }
+  logout() {
+    // remove user from local storage to log user out
+   
+    // notify
+    this.auth.logoutUser();
+    this.router.navigate(['/auth/login']);
   }
 }
