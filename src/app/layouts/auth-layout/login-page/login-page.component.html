@@ -1,10 +1,10 @@
-<section class="h-200 gradient-form container-fluid" style="margin-top: 110px ; border-top: 110px ; background-image: url('../../../../assets/img/Birthday_Balloons.png');">
+<section class="h-200 gradient-form container-fluid" style="margin-top: 90px ;background-image: url('../../../../assets/img/rosebg.png');background-repeat:space;background-size:contain;">
 	<div class="container py-2 h-100">
 	  <div class="row d-flex justify-content-center align-items-center h-100">
 		<div class="col-lg-5">
 			<ngb-alert [type]="'danger'" [dismissible]="false" *ngIf="error">
 				<div class="alert-body">
-				  <p>{{ error }}</p>
+				  <p>{{ error.error}}</p>
 				</div>
 			  </ngb-alert>
 		  <div class="card rounded-3 text-black">
@@ -30,7 +30,7 @@
 					  <div class="input-group-prepend">
 						<span class="input-group-text"></span>
 					  </div>
-					  <input type="text" formControlName="email" class="form-control"
+					  <input style="background-color: white;color:black" type="text" formControlName="email" class="form-control"
 						[ngClass]="{ 'is-invalid': submitted && f.email.errors }" placeholder="admin@demo.com"
 						aria-describedby="login-email" autofocus="" tabindex="1" />
 					  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
@@ -54,7 +54,7 @@
 					  <div class="input-group-prepend">
 						<span class="input-group-text"></span>
 					  </div>
-					  <input [type]="passwordTextType ? 'text' : 'password'" formControlName="password"
+					  <input style="background-color: white;color:black" [type]="passwordTextType ? 'text' : 'password'" formControlName="password"
 						class="form-control form-control-merge"
 						[ngClass]="{ 'is-invalid error': submitted && f.password.errors }" placeholder="············"
 						aria-describedby="login-password" tabindex="2" />
@@ -76,13 +76,10 @@
 				  </div>
 
 				  <div class="text-center pt-1 mb-5 pb-1">
-					<button class="btn  btn-block btn-danger fa-lg gradient-custom-2 mb-3" type="submit" rippleEffect>
-						
-						Log
-					  in
-					
-					</button>
-					<a class="text-muted text-danger" href="#!">Forgot password?</a>
+					<button class="btn btn-danger btn-small fa-lg gradient-custom-2 mb-3" type="submit" rippleEffect> 
+						Login 
+					</button><br>
+					<!-- <a class="text-muted text-danger" href="#!">Forgot password?</a> -->
 				  </div>
 
   

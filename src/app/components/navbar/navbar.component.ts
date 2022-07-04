@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private sidebarVisible: boolean;
   
   public isCollapsed = true;
-  auth:AuthenticationService;
+  
   closeResult: string;
   adminNameCountModel: AdminNameCountModel[]=[];
   constructor(
@@ -29,7 +29,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     location: Location,
     private element: ElementRef,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public auth:AuthenticationService
   ) {
     this.location = location;
     this.sidebarVisible = false;
@@ -209,7 +210,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     // remove user from local storage to log user out
    
     // notify
-    this.auth.logout();
+    this.auth.logoutUser();
     this.router.navigate(['/auth/login']);
   }
 }
