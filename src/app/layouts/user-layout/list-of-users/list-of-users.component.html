@@ -30,25 +30,39 @@
                                                                     <label for="FullName"
                                                                         [class.text-danger]="FullName.invalid && FullName.touched">Full
                                                                         Name
-                                                                    </label>
-                                                                    <input type="text" style="background-color: white ;" maxlength="50" id="FullName"
+                                                                    </label><i class="text-danger">*</i>
+                                                                    <input type="text"  style="background-color: white ; color: black;" maxlength="50" id="FullName"
+                                                                    [class.is-invalid]="FullName.invalid && FullName.touched"
                                                                         name="name" #FullName="ngModel"
                                                                         [(ngModel)]="apiModel.name"
                                                                         class="form-control"  
-                                                                        disabled>
+                                                                         required>
+                                                                         <div *ngIf="FullName.invalid && FullName.touched">
+                                                                            <small *ngIf="FullName.errors?.required"
+                                                                                class="text-danger">Full Name is
+                                                                                Required</small>
+                                                                        </div>
+                                                                         
 
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label for="Email">Email
-                                                                    </label>
-                                                                    <input type="text" style="background-color: white ;" maxlength="50" id="Email"
+                                                                    <label for="Email" 
+                                                                    [class.text-danger]="Email.invalid && Email.touched">Email
+                                                                    </label><i class="text-danger">*</i>
+                                                                    <input type="text"  style="background-color: white ; color: black;" maxlength="50" id="Email"
                                                                         name="email" #Email="ngModel"
-                                                                        [(ngModel)]="apiModel.name"
+                                                                        [class.is-invalid]="Email.invalid && Email.touched"
+                                                                        [(ngModel)]="apiModel.email"
                                                                         class="form-control"  
-                                                                        disabled>
+                                                                         required>
+                                                                         <div *ngIf="Email.invalid && Email.touched">
+                                                                            <small *ngIf="Email.errors?.required"
+                                                                                class="text-danger">Email is
+                                                                                Required</small>
+                                                                        </div>
 
                                                                 </div>
                                                             </div>
@@ -60,13 +74,20 @@
 
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label for="PhoneNumber">Phone Number
-                                                                    </label>
-                                                                    <input type="text" style="background-color: white ;" maxlength="50" id="Phone_Number"
+                                                                    <label for="PhoneNumber"
+                                                                    [class.text-danger]="PhoneNumber.invalid && PhoneNumber.touched">Phone Number
+                                                                    </label><i class="text-danger">*</i>
+                                                                    <input type="text"  style="background-color: white ; color: black;" maxlength="50" id="Phone_Number"
                                                                         name="Phone_umber" #PhoneNumber="ngModel"
+                                                                        [class.is-invalid]="PhoneNumber.invalid && PhoneNumber.touched"
                                                                         [(ngModel)]="apiModel.phone_number"
                                                                         class="form-control"  
-                                                                        disabled>
+                                                                        required>
+                                                                        <div *ngIf="PhoneNumber.invalid && PhoneNumber.touched">
+                                                                            <small *ngIf="PhoneNumber.errors?.required"
+                                                                                class="text-danger">Phone Number is
+                                                                                Required</small>
+                                                                        </div>
 
                                                                 </div>
                                                             </div>
@@ -74,13 +95,18 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="DateOfBirth">Date Of Birth
-                                                                    </label>
-                                                                    <input type="date" style="background-color: white ;" maxlength="50" id="profile.dob"
+                                                                    </label><i class="text-danger">*</i>
+                                                                    <input type="date"  style="background-color: white ; color: black;" maxlength="50" id="profile.dob"
                                                                         name="profile.dob" #DateOfBirth="ngModel"
+                                                                        [class.is-invalid]="DateOfBirth.invalid && DateOfBirth.touched"
                                                                         [(ngModel)]="apiModel.dob"
                                                                         class="form-control"  
-                                                                        disabled>
-
+                                                                         required>
+                                                                         <div *ngIf="DateOfBirth.invalid && DateOfBirth.touched">
+                                                                            <small *ngIf="DateOfBirth.errors?.required"
+                                                                                class="text-danger">Date Of Birth is
+                                                                                Required</small>
+                                                                        </div>
                                                                 </div>
                                                             </div>
 
@@ -89,38 +115,77 @@
 
 
                                                     <!-- /*Groups Start*/ -->
-                                                    <div class="form-body">
+                                                    <!-- <div class="form-body">
                                                         <div class="row">
 
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="Gender">Gender
-                                                                    </label>
-                                                                    <input type="text" style="background-color: white ;" id="profile.gender"
+                                                                    </label><i class="text-danger">*</i>
+                                                                    <input type="text" style="background-color: white ; color: black;" id="profile.gender"
                                                                         name="profile.gender" #DateOfBirth="ngModel"
                                                                         [(ngModel)]="apiModel.gender"
                                                                         class="form-control"  
-                                                                        disabled>
+                                                                         >
 
                                                                 </div>
                                                             </div>
 
 
                                                         </div>
+                                                    </div> -->
+                                                    <div class="form-body">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label class="form-label" for="GenderID"
+                                                                    [class.text-danger]="!GenderID.valid && GenderID.touched">Gender<i
+                                                                        class="text-danger">*</i></label>
+                                                                <ng-select [items]="Gender"
+                                                                    [class.error]="!GenderID.valid && GenderID.touched"
+                                                                    #GenderID="ngModel" required [closeOnSelect]="true"
+                                                                    [searchable]="true" bindLabel="gender"
+                                                                    gender="GenderID" id="id"
+                                                                    placeholder="Select Gender . . ." bindValue="gender"
+                                                                    [(ngModel)]="apiModel.gender">
+                                                                    <ng-template ng-label-tmp let-item="item"
+                                                                        let-clear="clear">
+                                                                        <span class="ng-value-label">
+                                                                            {{item.gender}}</span>
+                                                                        <span class="ng-value-icon right"
+                                                                            (click)="clear(item)"
+                                                                            aria-hidden="true">×</span>
+                                                                    </ng-template>
+                                                                </ng-select>
+                                                                <div *ngIf="GenderID.invalid"
+                                                                    class="form-text text-danger">
+                                                                    <small
+                                                                        *ngIf="GenderID.errors.required && GenderID.touched">
+                                                                        Gender is
+                                                                        required!
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
 
+
                                                     <div class="form-actions right mb-0 pb-0">
-                                                        <button type="button"
+                                                        <!-- <button type="button"
                                                             class="btn btn-warning mr-1 btn-sm shadow-sm btn-small"
                                                             (click)="hideForm()">
 
                                                             Close
-                                                        </button>
-                                                        <!--
-                                    <button type="submit" class="btn btn-primary btn-sm shadow-sm btn-small" [disabled]="form.invalid">
+                                                        </button> -->
+                                                        <button type="button" class="btn btn-warning mr-1"
+                                                            (click)="hideForm()" >
 
-                                        {{operation}}
-                                    </button> -->
+                                                                Cancel
+                                                            </button>
+                                                            <button type="submit" class="btn btn-primary"
+                                                                [disabled]="form.invalid">
+
+                                                                {{operation}}
+                                                            </button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -167,10 +232,10 @@
 
 
                                         <dxi-column type="buttons" fixed=true>
-                                            <dxi-button class="icon-badge" text="View" [onClick]="loadItem">
-                                            </dxi-button>
-                                            <!-- <dxi-button icon="edit" text="Edit" [onClick]="loadItem"></dxi-button>
-                                            <dxi-button icon="trash" text="Delete" [onClick]="deleteItem"></dxi-button> -->
+                                            <!-- <dxi-button class="icon-badge" text="View" [onClick]="loadItem">
+                                            </dxi-button> -->
+                                            <dxi-button icon="edit" text="Edit" [onClick]="loadItem"></dxi-button>
+                                            <dxi-button icon="trash" text="Delete" [onClick]="deleteItem"></dxi-button>
 
                                         </dxi-column>
                                     </dx-data-grid>

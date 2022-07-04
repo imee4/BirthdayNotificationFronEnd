@@ -3,14 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthenticationService } from 'src/app/main/api/models/authentication.service'; 
-// import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { ActivatedRoute, Router } from '@angular/router';
-// import { CoreConfigService } from '@core/services/config.service';
-// import { Subject } from 'rxjs';
+ 
 import { first } from 'rxjs/operators';
-import { Role } from 'src/app/main/api/models/resources/role';
-// import { LoginRequestDto } from '../auth.model';
-// import { AuthenticationService } from '../authentication.service';
+import { Role } from 'src/app/main/api/models/resources/role'; 
 
 @Component({
   selector: 'login-page',

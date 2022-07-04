@@ -20,7 +20,6 @@ export class Navbar2Component implements OnInit, OnDestroy {
   mobile_menu_visible: any = 0;
   private toggleButton: any;
   private sidebarVisible: boolean;
-  auth:AuthenticationService;
   groupNameCountModel:GroupNameCountModel[]=[];
   adminNameCountModel:AdminNameCountModel[]=[];
   public isCollapsed = true;
@@ -28,8 +27,9 @@ export class Navbar2Component implements OnInit, OnDestroy {
   closeResult: string;
 
   constructor(
-    location: Location,
-    private groupNameCountEndpoint : GroupNameCountEndpoint,
+    location: Location,    
+    public auth: AuthenticationService,
+    public groupNameCountEndpoint : GroupNameCountEndpoint,
     private adminNameCountEndpoint:AdminNameCountEndpoint,
     private  element: ElementRef,
     private router: Router,
@@ -212,10 +212,9 @@ export class Navbar2Component implements OnInit, OnDestroy {
      window.removeEventListener("resize", this.updateColor);
   }
   logout() {
-    // remove user from local storage to log user out
-   
+    // remove user from local storage to log user out 
     // notify
-    this.auth.logout();
+    this.auth.logoutUser();
     this.router.navigate(['/auth/login']);
   }
 }

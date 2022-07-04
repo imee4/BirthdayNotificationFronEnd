@@ -164,19 +164,18 @@ save() {
       });
       this.resetForm();
     },
+ 
     error => {
-      Swal.close();
       console.log(error);
+      Swal.close();
       Swal.fire({
-        icon: 'error',
-        title: 'Error!!',
-        text: error,
+        text:'Process Unsuccessful'+ error.error.message +'error',
+       icon: 'error',
+        title: 'Error!', 
         customClass: {
           confirmButton: 'btn btn-danger'
-        }
-      });
-    }
-  );
+        }});
+    });
 }
 updateList(id, updateuserAdminResources) {
   this.userAdminResources = this.userAdminResources.filter(e => e.id !== id);

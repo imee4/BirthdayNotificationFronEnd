@@ -63,7 +63,7 @@ save() {
  
   let httpCall =
     this.operation === 'Update'
-      ? this.groupsEndpoint.update2(this.id,this.apiModel)    
+      ? this.groupsEndpoint.update(this.id,this.apiModel)    
       : this.groupsEndpoint.create(this.apiModel);
   httpCall.subscribe(
     success => {
@@ -80,18 +80,16 @@ save() {
       this.resetForm();
     },
     error => {
-      Swal.close();
       console.log(error);
+      Swal.close();
       Swal.fire({
-        icon: 'error',
-        title: 'Error!!',
-        text: error,
+        text:'Process Unsuccessful'+ error.error.message +'error',
+       icon: 'error',
+        title: 'Error!', 
         customClass: {
           confirmButton: 'btn btn-danger'
-        }
-      });
-    }
-  );
+        }});
+    });
 }
 updateList(id, updateAddUsertResource) {
   this.groupResources = this.groupResources.filter(e => e.id !== id);

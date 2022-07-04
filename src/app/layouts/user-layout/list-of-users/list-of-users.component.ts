@@ -18,6 +18,10 @@ export class ListOfUsersComponent implements OnInit {
  
   
   @ViewChild('form') form: NgForm;
+  Gender = [
+    { id: 1, gender: 'Male' },
+    { id: 2, gender: 'Female' }, 
+];
   displayForm = false;
   operation = 'Add'; 
     id:number;
@@ -116,21 +120,19 @@ save() {
           confirmButton: 'btn btn-success'
         }
       });
-      this.resetForm();
+      this.hideForm();
     },
     error => {
-      Swal.close();
       console.log(error);
+      Swal.close();
       Swal.fire({
-        icon: 'error',
-        title: 'Error!!',
-        text: error,
+        text:'Process Unsuccessful'+ error.error.message +'error',
+       icon: 'error',
+        title: 'Error!', 
         customClass: {
           confirmButton: 'btn btn-danger'
-        }
-      });
-    }
-  );
+        }});
+    });
 }
 
 updateList(id, updateAddUsertResource) {
@@ -140,22 +142,7 @@ updateList(id, updateAddUsertResource) {
     return a.id - b.id;
   });
 }
-// loadItem(id) {
-//   let adminResources = this.adminResources.find(
-//     item => item.id === id.row.data.id
-//   );
-//   console.log(adminResources);
-//   Object.assign(this.apiModel, adminResources);
-//   this.id=id.row.data.id;
-//   this.email=this.apiModel?.profile?.email; 
-//   this.phone_number=this.apiModel?.profile?.phone_number; 
-//   this.name=this.apiModel?.profile?.name;
-//   this.dob=this.apiModel?.profile?.dob;
-//   this.gender=this.apiModel?.profile?.gender;
-  
-//   this.operation = 'Update';
-//   this.showForm();
-// }
+ 
 loadItem(id) {
   let addUserResources = this.addUserResources.find(
     item => item.id === id.row.data.id
@@ -201,16 +188,16 @@ loadItem(id) {
             });
           },
           error => {
+            console.log(error);
+            Swal.close();
             Swal.fire({
-              icon: 'error',
-              title: 'Error!!',
-              text: error,
+              text:'Process Unsuccessful'+ error.error.message +'error',
+             icon: 'error',
+              title: 'Error!', 
               customClass: {
                 confirmButton: 'btn btn-danger'
-              }
-            });
-          }
-        );
+              }});
+          });
       } else if (result.dismiss === Swal.DismissReason.cancel) {
       }
     });

@@ -156,16 +156,16 @@ updateList(id, updateAddUsertResource) {
             });
           },
           error => {
+            console.log(error);
+            Swal.close();
             Swal.fire({
-              icon: 'error',
-              title: 'Error!!',
-              text: error,
+              text:'Process Unsuccessful'+ error.error.message +'error',
+             icon: 'error',
+              title: 'Error!', 
               customClass: {
                 confirmButton: 'btn btn-danger'
-              }
-            });
-          }
-        );
+              }});
+          });
       } else if (result.dismiss === Swal.DismissReason.cancel) {
       }
     });
