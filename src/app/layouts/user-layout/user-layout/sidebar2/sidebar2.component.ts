@@ -24,12 +24,19 @@ export const ROUTES: RouteInfo[] = [
     rtlTitle: "لوحة القيادة",
     icon: "icon-chart-pie-36",
     class: ""
-  },   
+  },
   {
     path: "add-users2",
-    title: "Add User",
+    title: "Create User",
     rtlTitle: "لوحة القيادة",
     icon: "icon-simple-add",
+    class: ""
+  },    
+  {
+    path: "existing-user",
+    title: "Add User",
+    rtlTitle: "لوحة القيادة",
+    icon: "icon-single-02",
     class: ""
   },  
   {
@@ -37,6 +44,13 @@ export const ROUTES: RouteInfo[] = [
     title: "List Of Users",
     rtlTitle: "لوحة القيادة",
     icon: "icon-bullet-list-67",
+    class: ""
+  },
+  {
+    path: "todays-birthday",
+    title: "Todays Birthday",
+    rtlTitle: "لوحة القيادة",
+    icon: "icon-bell-55",
     class: ""
   },
 ];

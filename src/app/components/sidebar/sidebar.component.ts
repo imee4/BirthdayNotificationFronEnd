@@ -43,9 +43,16 @@ export const ROUTES: RouteInfo[] = [
   ////////
   {
     path: "add-users",
-    title: "Add User",
+    title: "Create Admin",
     rtlTitle: "لوحة القيادة",
     icon: "icon-simple-add",
+    class: ""
+  },
+  {
+    path: "add-group",
+    title: "Create Group",
+    rtlTitle: "لوحة القيادة",
+    icon: "icon-vector",
     class: ""
   },
   // {
@@ -57,7 +64,7 @@ export const ROUTES: RouteInfo[] = [
   // },
   {
     path: "list-of-users",
-    title: "List Of Users",
+    title: "List Of Admin",
     rtlTitle: "لوحة القيادة",
     icon: "icon-bullet-list-67",
     class: ""

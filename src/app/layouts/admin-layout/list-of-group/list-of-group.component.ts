@@ -16,9 +16,10 @@ export class ListOfGroupComponent implements OnInit {
 
   groupResources:GroupsResources[]=[];
   apiModel:CreateGroup={
-    id:undefined,
+    id: undefined,
     name: 0,
-    group_name: ''
+    group_name: '',
+    admin_id: 0
   }
   displayForm = false;
   operation = 'Add';
@@ -32,11 +33,7 @@ export class ListOfGroupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.groupsEndpoint.list()
-    //   .subscribe({
-    //     next: (response) => this.groupResources = response,
-    //     error: (error) => console.log(error),
-    //   });
+    
     this.groupsEndpoint.list()
     .subscribe({
       next: (data) => {
@@ -83,18 +80,16 @@ save() {
       this.resetForm();
     },
     error => {
-      Swal.close();
       console.log(error);
+      Swal.close();
       Swal.fire({
-        icon: 'error',
-        title: 'Error!!',
-        text: error,
+        text:'Process Unsuccessful'+ error.error.message +'error',
+       icon: 'error',
+        title: 'Error!', 
         customClass: {
           confirmButton: 'btn btn-danger'
-        }
-      });
-    }
-  );
+        }});
+    });
 }
 updateList(id, updateAddUsertResource) {
   this.groupResources = this.groupResources.filter(e => e.id !== id);

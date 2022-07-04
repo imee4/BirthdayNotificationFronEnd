@@ -15,6 +15,12 @@ import { GroupsResources } from 'src/app/main/api/models/resources/group-resourc
 })
 export class AddUsersComponent implements OnInit {
 
+  selectedGender: number;
+
+    Gender = [
+        { id: 1, gender: 'Male' },
+        { id: 2, gender: 'Female' }, 
+    ];
   
   @ViewChild('form') form: NgForm;
   displayForm = true;
@@ -31,13 +37,14 @@ export class AddUsersComponent implements OnInit {
   
   apiModel:CreateUser = {
     id: 0,
-    profile: 0,
     user: 0,
     email: '',
-    password: ''
+    password: '',
+    gender: 'Select Gender',
+    profile: undefined,
+    group: new GroupsResources
   };
 
-  public contentHeader: object;
   password: string;
   profile_id: number;
   user_type: number;
@@ -45,35 +52,10 @@ export class AddUsersComponent implements OnInit {
    
   constructor(private addUserEndpoint:AddUserEndpoint,
               private groupsEndPoint: GroupsEndPoint) {  
-    this.loadItem = this.loadItem.bind(this);
-    this.deleteItem = this.deleteItem.bind(this);
   }
 
   ngOnInit(): void {
-    this.contentHeader = {
-      headerTitle: 'Manage Courts',
-      actionButton: true,
-      breadcrumb: {
-        type: '',
-        links: [
-          {
-            name: 'Home',
-            isLink: true,
-            link: '/landing'
-          },
-          {
-            name: 'Manage Courts',
-            isLink: false
-          }
-        ]
-      }
-    };
-    // this.addUserEndpoint.list().subscribe(
-    //   ({ data }) => this.addUserResources = data,
-    //   err => {
-    //     console.log(err);
-    //   }
-    // ); 
+    
     this.addUserEndpoint.list()
     .subscribe({
       next: (data) => this.addUserResources = data,
@@ -103,9 +85,8 @@ save() {
   Swal.showLoading( );
  
   let httpCall =
-    this.operation === 'Add'
-      ? this.addUserEndpoint.update(this.id,this.apiModel)    
-      : this.addUserEndpoint.create(this.apiModel);
+        
+      this.addUserEndpoint.create(this.apiModel);
   httpCall.subscribe(
     success => {
       Swal.close();
@@ -121,18 +102,16 @@ save() {
       this.resetForm();
     },
     error => {
-      Swal.close();
       console.log(error);
+      Swal.close();
       Swal.fire({
-        icon: 'error',
-        title: 'Error!!',
-        text: error,
+        text:'Process Unsuccessful'+ error.error.message +'error',
+       icon: 'error',
+        title: 'Error!', 
         customClass: {
           confirmButton: 'btn btn-danger'
-        }
-      });
-    }
-  );
+        }});
+    });
 }
 
 updateList(id, updateAddUsertResource) {
@@ -141,64 +120,7 @@ updateList(id, updateAddUsertResource) {
   this.addUserResources.sort(function (a, b) {
     return a.id - b.id;
   });
-}
-  loadItem(id) {
-    let addUserResource = this.addUserResources.find(
-      item => item.id === id.row.data.id
-    );
-    console.log(addUserResource);
-    Object.assign(this.apiModel, addUserResource);
-    this.id = id.row.data.id;
-    this.email =this.apiModel.email; 
-    this.password = this.apiModel.password;
-    this.profile_id =this.apiModel.profile; 
-    
-    this.operation = 'Update';
-    this.showForm();
-  }
-  deleteItem(id) {
-    Swal.fire({
-      title: 'Delete',
-      text: "Are you sure you want to delete this record?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, delete it!',
-      customClass: {
-        confirmButton: 'btn btn-primary',
-        cancelButton: 'btn btn-danger ml-1'
-      }
-    }).then(result => {
-      if (result.value) {
-        this.addUserEndpoint.delete(id.row.data.id).subscribe(
-          _ => {
-            this.addUserResources = this.addUserResources.filter(
-              e => e.id !== id.row.data.id
-            );
-            // this.alert.success('Record deleted');
-            Swal.fire({
-              icon: 'success',
-              title: 'Deleted!',
-              text: 'Your record has been deleted.',
-              customClass: {
-                confirmButton: 'btn btn-success'
-              }
-            });
-          },
-          error => {
-            Swal.fire({
-              icon: 'error',
-              title: 'Error!!',
-              text: error,
-              customClass: {
-                confirmButton: 'btn btn-danger'
-              }
-            });
-          }
-        );
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-      }
-    });
-  }
+} 
   addItem() {
     this.showForm();
     this.resetForm();

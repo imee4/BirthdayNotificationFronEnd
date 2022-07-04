@@ -27,30 +27,46 @@
 
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="AdminID"
+                                                <!-- <label for="AdminID"
                                                     [class.text-danger]="AdminID.invalid && AdminID.touched">Admin ID
-                                                </label><i class="text-danger">*</i>
-                                                <ng-select type="text" maxlength="50" id="admin_id" name="name"
-                                                    #AdminID="ngModel" [(ngModel)]="apiModel.group_name" [items]="groupResources" bindValue="group_name" bindLabel="admin_id"
+                                                </label><i class="text-danger">*</i> -->
+                                                <!-- <ng-select type="text" maxlength="50" id="admin_id" name="name"
+                                                    #AdminID="ngModel" [(ngModel)]="apiModel.group_name" [items]="groupResources" bindValue="group_name" bindLabel="group_name"
                                                     [class.is-invalid]="AdminID.invalid && AdminID.touched"
                                                     class="form-control" placeholder="Enter Admin ID..." required></ng-select>
-                                                <div *ngIf="AdminID.invalid && AdminID.touched">
-                                                    <small *ngIf="AdminID.errors?.required" class="text-danger">Admin ID is
-                                                        Required</small>
+                                                <div *ngIf="AdminID.invalid && AdminID.touched"> -->
+                                                    <!-- <ng-select [items]="groupResources"
+                                                            [class.error]="!GenderID.valid && GenderID.touched"
+                                                            #GenderID="ngModel" required [closeOnSelect]="true"
+                                                            [searchable]="true" bindLabel="group_id"
+                                                            gender="GenderID" id="id"
+                                                            placeholder="Select Gender . . ." bindValue="group_name"
+                                                            [(ngModel)]="apiModel.admin_id">
+                                                            <ng-template ng-label-tmp let-item="item"
+                                                                let-clear="clear">
+                                                                <span class="ng-value-label">
+                                                                    {{item.admin_id}}</span>
+                                                                <span class="ng-value-icon right"
+                                                                    (click)="clear(item)"
+                                                                    aria-hidden="true">×</span>
+                                                            </ng-template>
+                                                        </ng-select> -->
+                                                    <!-- <small *ngIf="AdminID.errors?.required" class="text-danger">Admin ID is
+                                                        Required</small> -->
                                                 </div>
                                             </div>
                                         </div>
  
-                                        
-                                        <div class="col-md-6">
+                                         
+                                            <div class="form-group"> 
                                             <div class="form-group">
                                                 <label for="GroupName"
                                                     [class.text-danger]="GroupName.invalid && GroupName.touched">GroupName
                                                 </label><i class="text-danger">*</i>
-                                                <input type="text" maxlength="50" id="group_name" name="group_name" #GroupName="ngModel"
+                                                <input type="text" style="background-color: white ; color: black;"  maxlength="50" id="group_name" name="group_name" #GroupName="ngModel"
                                                     [(ngModel)]="apiModel.group_name"
                                                     [class.is-invalid]="GroupName.invalid && GroupName.touched"
-                                                    class="form-control" placeholder="Enter GroupName..." required>
+                                                    class="form-control" placeholder="Enter Group Name..." required>
                                                 <div *ngIf="GroupName.invalid && GroupName.touched">
                                                     <small *ngIf="GroupName.errors?.required" class="text-danger">GroupName is
                                                         Required</small>
@@ -59,7 +75,7 @@
                                         </div>
 
                                     </div>
-                                </div>
+                                
 
                                 <div class="form-actions right mb-0 pb-0">
                                     <button type="button" class="btn btn-warning mr-1 btn-sm shadow-sm btn-small" (click)="hideForm()">
@@ -84,46 +100,19 @@
           <h4 class="float-left mb-0 font-weight-bolder">
               <strong>List of Records</strong>
           </h4> -->
-          <div class="float-right border-radius-lg">
+          <!-- <div class="float-right border-radius-lg">
               <button class="btn btn-gradient-primary btn-sm btn-small" rippleEffect (click)="addItem()">
                   <i  _ngcontent-tix-c35="" class="icon-simple-add tim-icons"></i>
-                  <span class="d-none d-sm-inline-block">Add New
-                      Record</span>
+                  <span class="d-none d-sm-inline-block">Create Group</span>
               </button>
-         </div>  
-          <!-- /.box-header -->
-      <div class="card-content collapse show">
-        <div class="card-body">
-            <div class="table-responsive"> 
-   
-
-                   <dx-data-grid class="dx-card wide-card border border-danger border-50" [dataSource]="groupResources"
-                    [showBorders]="true" [visible]="true" placeholder="Search..." [showColumnLines]="true"
-                    [showRowLines]="true" [rowAlternationEnabled]="true" keyExpr="id" [focusedRowEnabled]="true"
-                    [focusedRowIndex]="0" [columnAutoWidth]="true" [allowColumnReordering]="true"
-                    [allowColumnResizing]="true" [columnAutoWidth]="true" [columnHidingEnabled]=false>
-                    <dxo-paging [pageSize]="10"></dxo-paging>
-                    <dxo-pager [showPageSizeSelector]="true" [showInfo]="true"></dxo-pager>
-                    <dxo-filter-row [visible]="true"></dxo-filter-row> 
-                    <dxi-column dataField="id" caption="ID"> </dxi-column>
-                    <dxi-column dataField="profile.name" caption="Admin Name"> </dxi-column>
-                    <dxi-column dataField="group_name" caption="Group Name"></dxi-column> 
-
-                    <dxi-column type="buttons" fixed=true>
-                    <dxi-button icon="edit" text="Edit" [onClick]="loadItem"></dxi-button>
-                    <dxi-button icon="trash" text="Delete" [onClick]="deleteItem">
-                    </dxi-button>
-                    </dxi-column>
-                </dx-data-grid>
-           </div>
-        </div>
-    </div>   
+         </div>   -->
+        
     <!-- end box-body -->
 
     
       <!-- /.box-header -->
       <div class="card-content collapse show">
-          <div class="card-body">
+          <div class="card-body" style="border:solid 1px red  ;">
               <div class="table-responsive"> 
      
 
@@ -135,9 +124,8 @@
                       <dxo-paging [pageSize]="10"></dxo-paging>
                       <dxo-pager [showPageSizeSelector]="true" [showInfo]="true"></dxo-pager>
                       <dxo-filter-row [visible]="true"></dxo-filter-row> 
-                      
-                      <dxi-column dataField="id" caption="Admin Name"> </dxi-column> 
-                      <dxi-column dataField="name" caption="Admin Name"> </dxi-column>
+                       
+                      <!-- <dxi-column dataField="name" caption="Admin Name"> </dxi-column> -->
                       <dxi-column dataField="group_name" caption="Group Name"></dxi-column> 
 
                       <dxi-column type="buttons" fixed=true>

@@ -9,14 +9,14 @@
                         <!-- <app-content-header [contentHeader]="contentHeader"></app-content-header> -->
                         <!-- / Subject Form section start -->
                         <div class="card" *ngIf="displayForm">
-                            <div class="card-body">
+                            <div class="card-body" style="border:solid 1px red  ;">
                                 <section id="multiple-column-form">
                                     <div class="row match-height">
                                         <div class="col-12">
                                             <!-- <h4 class="card-title">{{operation}} Record</h4> -->
                                             <div class="card-body">
 
-                                                <form class="form"  role="form"   #form="ngForm"
+                                                <form class="form" role="form" #form="ngForm"
                                                     (ngSubmit)="processForm(e)">
                                                     <!-- <input type="hidden" [(ngModel)]="apiModel.id" name="id" /> -->
                                                     <h6 style="color:gray ;">Profile
@@ -31,12 +31,12 @@
                                                                         [class.text-danger]="FullName.invalid && FullName.touched">Full
                                                                         Name
                                                                     </label><i class="text-danger">*</i>
-                                                                    <input type="text" maxlength="50" id="FullName"
-                                                                        name="fullName" #FullName="ngModel"
-                                                                        [(ngModel)]="apiModel.name"
+                                                                    <input type="text" style="background-color: white ; color: black;" maxlength="50" 
+                                                                        id="FullName" name="fullName"
+                                                                        #FullName="ngModel" [(ngModel)]="apiModel.name"
                                                                         [class.is-invalid]="FullName.invalid && FullName.touched"
                                                                         class="form-control"
-                                                                        placeholder="Enter Full FullName..." required>
+                                                                        placeholder="Enter Full Name..." required>
                                                                     <div *ngIf="FullName.invalid && FullName.touched">
                                                                         <small *ngIf="FullName.errors?.required"
                                                                             class="text-danger">Full Name is
@@ -50,7 +50,7 @@
                                                                     <label for="Email"
                                                                         [class.text-danger]="Email.invalid && Email.touched">Email
                                                                     </label><i class="text-danger">*</i>
-                                                                    <input type="text" maxlength="50" id="Email"
+                                                                    <input type="email" style="background-color: white ; color:black ;" maxlength="50" id="Email"
                                                                         name="email" #Email="ngModel"
                                                                         [(ngModel)]="apiModel.email"
                                                                         [class.is-invalid]="Email.invalid && Email.touched"
@@ -75,11 +75,11 @@
                                                                         [class.text-danger]="PhoneNumber.invalid && PhoneNumber.touched">Phone
                                                                         Number
                                                                     </label><i class="text-danger">*</i>
-                                                                    <input type="text" maxlength="50" id="PhoneNumber"
+                                                                    <input type="text" style="background-color: white ; color: black;" maxlength="11" id="PhoneNumber"
                                                                         name="PhoneNumber" #PhoneNumber="ngModel"
                                                                         [(ngModel)]="apiModel.phone_number"
                                                                         [class.is-invalid]="PhoneNumber.invalid && PhoneNumber.touched"
-                                                                        class="form-control"
+                                                                        class="form-control"  
                                                                         placeholder="Enter Phone Number..." required>
                                                                     <div
                                                                         *ngIf="PhoneNumber.invalid && PhoneNumber.touched">
@@ -96,12 +96,12 @@
                                                                         [class.text-danger]="DateOfBirth.invalid && DateOfBirth.touched">Date
                                                                         Of Birth
                                                                     </label><i class="text-danger">*</i>
-                                                                    <input type="date" maxlength="50" id="DateOfBirth"
+                                                                    <input type="date" style="background-color: white ; color: black;" maxlength="50" id="DateOfBirth"
                                                                         name="DateOfBirth" #DateOfBirth="ngModel"
                                                                         [(ngModel)]="apiModel.dob"
                                                                         [class.is-invalid]="DateOfBirth.invalid && DateOfBirth.touched"
                                                                         class="form-control"
-                                                                        placeholder="Enter Date Of Birth..." required>
+                                                                        placeholder="Select Date Of Birth..." required>
                                                                     <div
                                                                         *ngIf="DateOfBirth.invalid && DateOfBirth.touched">
                                                                         <small *ngIf="DateOfBirth.errors?.required"
@@ -113,27 +113,92 @@
 
                                                         </div>
                                                     </div>
+                                                    <div class="form-body">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-6">
+                                                                <label class="form-label" for="GenderID"
+                                                                    [class.text-danger]="!GenderID.valid && GenderID.touched">Gender<i
+                                                                        class="text-danger">*</i></label>
+                                                                <ng-select [items]="Gender" style="color: black;"
+                                                                    [class.error]="!GenderID.valid && GenderID.touched"
+                                                                    #GenderID="ngModel" required [closeOnSelect]="true"
+                                                                    [searchable]="true" bindLabel="gender"
+                                                                    gender="GenderID" id="id"
+                                                                    placeholder="Select Gender . . ." bindValue="gender"
+                                                                    [(ngModel)]="apiModel.gender">
+                                                                    <ng-template ng-label-tmp let-item="item"
+                                                                        let-clear="clear">
+                                                                        <span class="ng-value-label">
+                                                                            {{item.gender}}</span>
+                                                                        <span class="ng-value-icon right"
+                                                                            (click)="clear(item)"
+                                                                            aria-hidden="true">×</span>
+                                                                    </ng-template>
+                                                                </ng-select>
+                                                                <div *ngIf="GenderID.invalid"
+                                                                    class="form-text text-danger">
+                                                                    <small
+                                                                        *ngIf="GenderID.errors.required && GenderID.touched">
+                                                                        Gender is
+                                                                        required!
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group col-md-6">
+                                                                <label class="form-label" for="group_id"
+                                                                    [class.text-danger]="group_id.invalid &amp;&amp; group_id.touched">Group<i
+                                                                        class="text-danger">*</i></label>
+                                                                <ng-select [items]="groupsResources" #group_id="ngModel"
+                                                                style="background-color: white; color:black" placeholder="Select Group"
+                                                                    required [closeOnSelect]="true" [searchable]="true"
+                                                                    bindLabel="group_name" bindValue="id"
+                                                                    name="group_id" id="group_id"
+                                                                    placeholder="Select Group . . ."
+                                                                    [(ngModel)]="apiModel.group_id"
+                                                                    [class.error]="!group_id.valid && group_id.touched">
+                                                                    <ng-template ng-label-tmp let-item="item"
+                                                                        let-clear="clear">
+                                                                        <span class="ng-value-label"> {{ item.group_name}}</span>
+                                                                        <span class="ng-value-icon right"
+                                                                            (click)="clear(item)"
+                                                                            aria-hidden="true">×</span>
+                                                                    </ng-template>
+                                                                </ng-select>
+
+                                                                <div
+                                                                    *ngIf="group_id.invalid &amp;&amp; group_id.touched">
+                                                                    <span *ngIf="group_id.invalid" class="invalid-form">
+                                                                        <small class="form-text text-danger"
+                                                                            *ngIf="group_id.errors.required">Group is
+                                                                            required!</small>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
 
 
                                                     <!-- /*Groups Start*/ -->
-                                                    <p style="color:gray;" class="h6">Group <side style="color:gray;"
-                                                            class="h6 end-0">Login Details</side>
-                                                    </p>
+                                                    <!-- <p style="color:gray;" class="h6">Group Details
+                                                    </p> -->
                                                     <div class="form-body">
                                                         <div class="row">
 
 
-                                                            <div class="form-group col-md-6">
-                                                                <!-- <label class="form-label" for="state_id"
-                                                                    [class.text-danger]="!state_id.valid && state_id.touched">State<i
-                                                                        class="text-danger">*</i></label> -->
-                                                                <ng-select [items]="groupsResources"
-                                                                    [class.error]="!state_id.valid && state_id.touched"
-                                                                    #state_id="ngModel" required [closeOnSelect]="true"
-                                                                    [searchable]="true" bindLabel="group.id"
-                                                                    name="state_id" id="id"
-                                                                    placeholder="Select State . . ." bindValue="id"
-                                                                    [(ngModel)]="apiModel.id">
+                                                            <!-- <div class="form-group col-md-6">
+                                                                <label class="form-label" for="GroupID"
+                                                                    [class.text-danger]="!GroupID.valid && GroupID.touched">Group<i
+                                                                        class="text-danger">*</i></label>
+                                                                <ng-select [items]="groupsResources" scroll="true"
+                                                                    [class.error]="!GroupID.valid && GroupID.touched"
+                                                                    #GroupID="ngModel" required [closeOnSelect]="true"
+                                                                    [searchable]="true" bindLabel="group_name"
+                                                                    name="GroupID" id="id"
+                                                                    placeholder="Select Group . . ." bindValue="id"
+                                                                    [(ngModel)]="apiModel.group_id">
                                                                     <ng-template ng-label-tmp let-item="item"
                                                                         let-clear="clear">
                                                                         <span class="ng-value-label">
@@ -143,36 +208,36 @@
                                                                             aria-hidden="true">×</span>
                                                                     </ng-template>
                                                                 </ng-select>
-                                                                <!-- <div *ngIf="state_id.invalid"
+                                                                <div *ngIf="GroupID.invalid"
                                                                     class="form-text text-danger">
                                                                     <small
-                                                                        *ngIf="state_id.errors.required && state_id.touched">
-                                                                        State is
+                                                                        *ngIf="GroupID.errors.required && GroupID.touched">
+                                                                        Group is
                                                                         required!
                                                                     </small>
-                                                                </div> -->
-                                                            </div>
-
-
+                                                                </div>
+                                                            </div> -->
+                                                            
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="Password"
                                                                         [class.text-danger]="Password.invalid && Password.touched">Password
                                                                     </label><i class="text-danger">*</i>
-                                                                    <input type="text" maxlength="50" id="Password"
+                                                                    <input type="password" maxlength="50" id="Password"
                                                                         name="Password" #Password="ngModel"
                                                                         [(ngModel)]="apiModel.password"
                                                                         [class.is-invalid]="Password.invalid && Password.touched"
                                                                         class="form-control"
-                                                                        placeholder="Enter Password..." required>
+                                                                        placeholder="Enter Password..." 
+                                                                        required minlength="6"
+                                                                        >
                                                                     <div *ngIf="Password.invalid && Password.touched">
                                                                         <small *ngIf="Password.errors?.required"
                                                                             class="text-danger">Password is
                                                                             Required</small>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-
+                                                            </div> 
                                                         </div>
                                                     </div>
 

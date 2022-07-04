@@ -27,6 +27,7 @@ import { ComponentsModule } from "src/app/components/components.module";
 import { ListOfUsersComponent } from "./list-of-users/list-of-users.component";
 import { ListOfGroupComponent } from "./list-of-group/list-of-group.component";
 import { NgSelectModule } from "@ng-select/ng-select";
+import { AddGroupComponent } from "src/app/components/add-group/add-group.component";
  
 
 @NgModule({
@@ -83,7 +84,8 @@ import { NgSelectModule } from "@ng-select/ng-select";
     ManageGroupComponent,
     ManageAdminComponent,
     ListOfUsersComponent,
-    ListOfGroupComponent
+    ListOfGroupComponent,
+    AddGroupComponent
     // RtlComponent
   ]
   

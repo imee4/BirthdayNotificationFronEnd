@@ -4,6 +4,8 @@ import { AddUserEndpoint } from 'src/app/main/api/endpoints/add-user.endpoint';
 import { UserEndPoint } from 'src/app/main/api/endpoints/user.endpoint';
 import { CreateUser } from 'src/app/main/api/models/requests/request/create-super-admin.model';
 import { AddUserResources } from 'src/app/main/api/models/resources/add-user.model'; 
+import { GroupsResources } from 'src/app/main/api/models/resources/group-resource.model';
+import { UserAdminResources } from 'src/app/main/api/models/resources/userAdminResource.model';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,31 +18,39 @@ export class ListOfUsersComponent implements OnInit {
  
   
   @ViewChild('form') form: NgForm;
+  Gender = [
+    { id: 1, gender: 'Male' },
+    { id: 2, gender: 'Female' }, 
+];
   displayForm = false;
   operation = 'Add'; 
     id:number;
     email:string;
     name:string;
     phone_number:number;
-    dob:Date;
+    dob:string;
     gender:string;
-  userResouces: AddUserResources[]=[];
-  addUserResources: AddUserResources[]=[]; 
-  apiModel:CreateUser = {
-    id: 0,
-    profile: 0,
-    user: 0,
-    email: '',
-    password: ''
-  };
+   userResouces: AddUserResources[]=[];
+   addUserResources: AddUserResources[]=[]; 
+   apiModel:CreateUser = {
+     id: 0,
+     user: 0,
+     email: '',
+     password: '',
+     gender: '',
+     group: new GroupsResources,
+     profile: new UserAdminResources
+   };
 
   public contentHeader: object;
   password: string;
   profile_id: number;
   user_type: number;
+  adminResources: UserAdminResources[]=[];
+  group: number; 
 
    
-  constructor(private addUserEndpoint:AddUserEndpoint,
+  constructor(
               private userEndPoint:UserEndPoint) {  
     this.loadItem = this.loadItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
@@ -71,7 +81,7 @@ export class ListOfUsersComponent implements OnInit {
     //     console.log(err);
     //   }
     // ); 
-    this.addUserEndpoint.list()
+    this.userEndPoint.list()
     .subscribe({
       next: (data) => this.addUserResources = data,
       error: (error) => console.log(error),
@@ -110,21 +120,19 @@ save() {
           confirmButton: 'btn btn-success'
         }
       });
-      this.resetForm();
+      this.hideForm();
     },
     error => {
-      Swal.close();
       console.log(error);
+      Swal.close();
       Swal.fire({
-        icon: 'error',
-        title: 'Error!!',
-        text: error,
+        text:'Process Unsuccessful'+ error.error.message +'error',
+       icon: 'error',
+        title: 'Error!', 
         customClass: {
           confirmButton: 'btn btn-danger'
-        }
-      });
-    }
-  );
+        }});
+    });
 }
 
 updateList(id, updateAddUsertResource) {
@@ -134,20 +142,23 @@ updateList(id, updateAddUsertResource) {
     return a.id - b.id;
   });
 }
-  loadItem(id) {
-    let addUserResource = this.addUserResources.find(
-      item => item.id === id.row.data.id
-    );
-    console.log(addUserResource);
-    Object.assign(this.apiModel, addUserResource);
-    this.id = id.row.data.id;
-    this.email =this.apiModel.email; 
-    this.password = this.apiModel.password;
-    this.profile_id =this.apiModel.profile; 
-    
-    this.operation = 'Update';
-    this.showForm();
-  }
+ 
+loadItem(id) {
+  let addUserResources = this.addUserResources.find(
+    item => item.id === id.row.data.id
+  );
+  console.log(addUserResources);
+  Object.assign(this.apiModel, addUserResources);
+  this.id=id.row.data.id;
+  // this.email=this.apiModel.email;; 
+  // this.phone_number=this.apiModel.profile.phone_number;
+  // this.group=this.apiModel.group.group_id; 
+  this.gender=this.apiModel.profile.gender;
+  this.dob=this.apiModel?.profile?.dob;
+  
+  this.operation = 'Update';
+  this.showForm();
+}
   deleteItem(id) {
     Swal.fire({
       title: 'Delete',
@@ -161,7 +172,7 @@ updateList(id, updateAddUsertResource) {
       }
     }).then(result => {
       if (result.value) {
-        this.addUserEndpoint.delete(id.row.data.id).subscribe(
+        this.userEndPoint.delete(id.row.data.id).subscribe(
           _ => {
             this.addUserResources = this.addUserResources.filter(
               e => e.id !== id.row.data.id
@@ -177,16 +188,16 @@ updateList(id, updateAddUsertResource) {
             });
           },
           error => {
+            console.log(error);
+            Swal.close();
             Swal.fire({
-              icon: 'error',
-              title: 'Error!!',
-              text: error,
+              text:'Process Unsuccessful'+ error.error.message +'error',
+             icon: 'error',
+              title: 'Error!', 
               customClass: {
                 confirmButton: 'btn btn-danger'
-              }
-            });
-          }
-        );
+              }});
+          });
       } else if (result.dismiss === Swal.DismissReason.cancel) {
       }
     });
@@ -199,6 +210,4 @@ updateList(id, updateAddUsertResource) {
     this.form?.reset();
     this.operation = "Add"; 
   }
-
-
 }
