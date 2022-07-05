@@ -6,7 +6,7 @@
 //   production: false
 // };
 export const environment = {
-  production: true,
+  production: false,
   hmr: false,
   apiUrl: 'http://localhost:8000'
 };
